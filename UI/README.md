@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-# BL00D
-=======
 ## bl00d
 
-This app is bood report
+BL00D
 
 ## Description
 
@@ -63,4 +60,4 @@ You can install any dependencies (for example, React Router) with `npm`:
 
 ```sh
 npm install --save react-router
->>>>>>> e9363f7 (added ui)
+`
