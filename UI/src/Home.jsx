@@ -1,4 +1,5 @@
 import React from "react";
+import bloodhomebackground from './Images/bloodhomebackground.jpg';
 import Button from "@mui/material/Button";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -10,8 +11,12 @@ function Home() {
         className="mainPage"
         style={{
           backgroundColor: "lightblue",
+          backgroundImage: `url(${bloodhomebackground})`,
           height: "100vh",
           width: "100vw",
+          backgroundPosition: "center", /* Center the image */
+          backgroundRepeat: "no-repeat", /* Do not repeat the image */
+          backgroundSize: "cover" /* Resize the background image to cover the entire container */
         }}
       >
         <div
@@ -68,6 +73,9 @@ function Home() {
             top: "105px",
             left: "27px",
             gridTemplateColumns: "repeat(2, 1fr)",
+            fontWeight: "bold",
+            color: "black",
+            opacity: "0.5",
             backgroundColor: "white",
           }}
         >
@@ -107,7 +115,7 @@ function Home() {
           </Button>
         </div>
 
-        <div
+        {/* <div
           className="middle-border-line"
           style={{
             position: "absolute",
@@ -117,7 +125,7 @@ function Home() {
             height: "5px",
             backgroundColor: "black",
           }}
-        ></div>
+        ></div> */}
 
 
         <div
