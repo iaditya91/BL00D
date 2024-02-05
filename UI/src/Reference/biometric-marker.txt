@@ -1,0 +1,126 @@
+export default function Home() {
+
+  // some types I had to make because im using TS
+  // the type ReferenceValue is for the different blocks we see in the biometric i.e alarm, lab, optimal, ...
+  type ReferenceValue = {
+    id: string;           // easy way to identify each block in the biometric range
+    color: string;        // the color we will assign using Tailwind
+    min: number;          // that block's specific min value (note: all the alarm-ones start wiht 0 as min)
+    max: number;          // that block's specific max value
+  };
+
+  // the type Metric represnets an individual biometric range and marker
+  type Metric = {
+    name: string;                           // this is the name of the biometric i.e RBC, RDW, CRC, etc ...
+    metricVal: number;                      // this is the number that the biometric marker is supposed to represent (the value recieved from the backend)
+    referenceValues: ReferenceValue[];      // this is an array of the blocks we previously defined
+  };
+
+  // sample data that puts into use the previously defined types
+  let data: Metric[] = [
+    {
+      name: "RBC",
+      metricVal: 2,
+      referenceValues: [
+        { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+        { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+        { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+        { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+        { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+        { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+        { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
+      ],
+    },
+    {
+      name: "RDW",
+      metricVal: 16,
+      referenceValues: [
+        { id: "alarm-one", color: "green", min: 0, max: 3.25 },
+        { id: "lab-one", color: "green", min: 3.25, max: 6.5 },
+        { id: "lab-two", color: "green", min: 6.5, max: 9.75 },
+        { id: "optimal", color: "green", min: 9.75, max: 13 },
+        { id: "lab-three", color: "yellow", min: 13, max: 15.6 },
+        { id: "lab-four", color: "orange", min: 15.6, max: 16.68 },
+        { id: "alarm-two", color: "red", min: 16.68, max: 17.76 },
+      ],
+    },
+    {
+      name: "CRC",
+      metricVal: 1.83,
+      referenceValues: [
+        { id: "alarm-one", color: "orange", min: 0, max: 0.25 },
+        { id: "lab-one", color: "orange", min: 0.25, max: 0.5 },
+        { id: "lab-two", color: "yellow", min: 0.5, max: 1 },
+        { id: "optimal", color: "green", min: 1, max: 2 },
+        { id: "lab-three", color: "yellow", min: 2, max: 2.5 },
+        { id: "lab-four", color: "orange", min: 2.5, max: 3 },
+        { id: "alarm-two", color: "red", min: 3, max: 3.5 },
+      ],
+    },
+  ];
+
+  return (
+    // I use Tailwind CSS so please refer to the docs for questions https://tailwindcss.com/
+    <div className="text-center mt-12">
+      <h1 className="text-xl font-bold">
+        Proof of Concept: Using CSS Grid for Uneven Reference Bars
+      </h1>
+      <div className="flex flex-col gap-4 mt-12">
+        {/* here we map each biometric range in the the data array */}
+        {data.map((metric) => {
+          return (
+            <div key={metric.name} className="flex">
+              <h1>
+                {metric.name}:{metric.metricVal}
+              </h1>
+              <div className="flex-1 grid grid-cols-8">
+                {/* here we map through each bliock in the biometric range */}
+                {metric.referenceValues.map((referenceVal) => {
+
+                  // this styles the div representing a block in the range
+                  let metricStyle = "relative bg-" + referenceVal.color + "-200 border ";
+                  if (referenceVal.id == "optimal") {
+                    // we make the optimal block twice as big using css grid
+                    metricStyle += "col-span-2";
+                  }
+                  
+                  // here is where we use the CSS function calc to position the marker in the correct location in its block
+                  let markerStyle = `absolute top-0 text-red-500 translate-x-[-50%]`;
+                  let markerCalc = `calc((${metric.metricVal} - ${referenceVal.min}) / (${referenceVal.max} - ${referenceVal.min})  * 100%)`;
+                  let hasMarker = false;
+
+                  // we only want the marker to show in the block its value belongs to
+                  // so we check for it and use hasMarker for conditional rendering
+                  if (
+                    metric.metricVal > referenceVal.min &&
+                    metric.metricVal < referenceVal.max
+                  ) {
+                    hasMarker = true;
+                  }
+                  return (
+                    <div key={referenceVal.id} className={metricStyle}>
+                      {/* 
+                        conditional rendering
+                        Tailwind cannot handle the calc function properly 
+                        so we use React's attribute style to add the calc function
+                        [left] is the css property that will position the marker properly
+                      */}
+                      {hasMarker && (
+                        <div
+                          className={markerStyle}
+                          style={{left: markerCalc,}}
+                        >
+                          |
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
