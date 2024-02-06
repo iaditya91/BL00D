@@ -1,10 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import bloodhomebackground from './Images/bloodhomebackground.jpg';
 import Button from "@mui/material/Button";
 import LightModeIcon from '@mui/icons-material/LightMode';
 import MenuIcon from '@mui/icons-material/Menu';
+import axios from "./api/axios1";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!file) {
+      alert('Please select a file to upload.');
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // Example POST request using axios to upload file
+      const response = await axios.post('/upload_excel', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      console.log('File uploaded successfully:', response.data);
+      navigate("/reference");
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
+
   return (
     <>
       <div
@@ -103,6 +136,7 @@ function Home() {
             justifyContent:"center"
           }}
         >
+          <input type="file" onChange={handleFileChange} />
           <Button
             variant="contained"
             style={{
@@ -110,6 +144,7 @@ function Home() {
               height: "35.01px",
               backgroundColor: "blue",
             }}
+            onClick={handleUpload}
           >
             UPLOAD YOUR BLOOD REPORT
           </Button>
