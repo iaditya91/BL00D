@@ -21,7 +21,7 @@ function RBCReferenceRangeAnalysis() {
             { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
         />
-        {/* <br />
+         <br />
         <SegmentedBarChart
           name="HGB"
           value={3.94}
@@ -149,7 +149,7 @@ function RBCReferenceRangeAnalysis() {
             { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
         />
-        <br /> */}
+        <br />
       </div>
     </>
   );

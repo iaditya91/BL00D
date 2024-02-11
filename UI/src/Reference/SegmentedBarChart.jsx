@@ -88,7 +88,7 @@ const SegmentedBarChart = ({
     color: "#333",
   };
 
-  const annotationStyleTop = {
+  let annotationStyleTop = {
     position: "absolute",
     top: "-20px",
     left: "80%",
@@ -121,6 +121,7 @@ const SegmentedBarChart = ({
 
   const generateBar = (ref, index) => {
      (ref.id === "optimal") ? segmentStyle = { ...segmentStyle, flex: "2" }: segmentStyle = { ...segmentStyle, flex: "1" };
+     (ref.id === "optimal") ? annotationStyleTop = { ...annotationStyleTop, left: "65%" }: annotationStyleTop = { ...annotationStyleTop, left: "80%" };
     return (
       <>
         <div
