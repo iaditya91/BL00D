@@ -15,17 +15,11 @@ import {
   CategoryScale,
   LinearScale,
   Tooltip,
-  Legend
-} from 'chart.js';
-import {Bar} from 'react-chartjs-2';
+  Legend,
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
 
-ChartJS.register(
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend
-)
+ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -41,8 +35,7 @@ const SegmentedBarChart = ({
   value,
   units,
   first,
-  range,
-  finalrange,
+  referenceValues,
 }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -66,23 +59,24 @@ const SegmentedBarChart = ({
     position: "relative",
   };
 
-  const segmentStyle = {
+  let segmentStyle = {
     position: "relative",
     width: "80px",
     height: "35px",
+    flex: 1,
     // backgroundColor: "#3498db",
     // marginRight: '10px',
   };
 
   const bloodDropStyle = {
     position: "absolute",
-    bottom: "-15px",
+    bottom: "0px",
     // left: "calc(100% - 50px)",
     width: "0",
     height: "0",
     borderLeft: "10px solid transparent",
     borderRight: "10px solid transparent",
-    borderBottom: "15px solid #ff0000",
+    borderBottom: "15px solid #000000",
   };
 
   const annotationStyleBottom = {
@@ -101,25 +95,53 @@ const SegmentedBarChart = ({
     transform: "translateX(-100%)",
     fontSize: "12px",
     color: "#333",
+    whiteSpace: "nowrap"
   };
 
-  const bloodMarkerPosition =
-    ((value - finalrange[0]) / (finalrange[1] - finalrange[0])) * 100;
-  console.log(bloodMarkerPosition);
+  const bloodMarkerPosition = (r) => {
+    console.log('entered blood position: ', value);
+    let bloodPostion = ((value - r.min) / (r.max - r.min)) * 100;
+    console.log(bloodPostion);
+    return bloodPostion;}
+ 
 
   const data = {
-    labels: ['Mon', 'Tue', 'Wed'],
+    labels: ["Mon", "Tue", "Wed"],
     datasets: [
       {
         label: name,
         data: [3, 6, 9],
-        backgroundColor: 'aqua',
+        backgroundColor: "aqua",
         borderWidth: 1,
-      }
-    ]
-  }
+      },
+    ],
+  };
 
-  const options = {}
+  const options = {};
+
+  const generateBar = (ref, index) => {
+     (ref.id === "optimal") ? segmentStyle = { ...segmentStyle, flex: "2" }: segmentStyle = { ...segmentStyle, flex: "1" };
+    return (
+      <>
+        <div
+          key={index}
+          style={{ ...segmentStyle, backgroundColor: ref.color }}
+        >
+          {first && <div style={annotationStyleTop}>{ref && ref.id}</div>}
+          <div style={annotationStyleBottom}>{ref.max}</div>
+          {console.log(name, value, ref.min, ref.max)}
+          {/* value>=ref.min && value<=ref.max */}
+          {(value>=ref.min && value<=ref.max) && 
+          <div
+          style={{
+            ...bloodDropStyle,
+            left: `calc(${bloodMarkerPosition(ref, value)}}% - 10px)`,
+          }}
+        ></div>}
+        </div>
+      </>
+    );
+  };
 
   return (
     <>
@@ -133,25 +155,12 @@ const SegmentedBarChart = ({
             </p>{" "}
             {value} {units}
           </div>
-          {range &&
-            range.length > 0 &&
-            range.map((r, index) => (
-              <>
-                <div key={index} style={{ ...segmentStyle, backgroundColor: r[1] }}>
-                  {first && <div style={annotationStyleTop}>{r && r[2]}</div>}
-                  <div style={annotationStyleBottom}>{r[0]}</div>
-                </div>
-              </>
-            ))}
-          <div
-            style={{
-              ...bloodDropStyle,
-              left: `calc(${bloodMarkerPosition}% - 10px)`,
-            }}
-          ></div>
+          {referenceValues &&
+            referenceValues.length > 0 &&
+            referenceValues.map((ref, index) => generateBar(ref, index))}
         </div>
       </div>
-      
+
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -164,7 +173,7 @@ const SegmentedBarChart = ({
           aria-label="close"
           onClick={handleClose}
           sx={{
-            position: 'absolute',
+            position: "absolute",
             right: 8,
             top: 8,
             color: (theme) => theme.palette.grey[500],
@@ -176,10 +185,7 @@ const SegmentedBarChart = ({
           <Typography gutterBottom>
             This is a bar chart on {name} with {value} {units}
           </Typography>
-          <Bar
-            data = {data}
-            options = {options}
-          ></Bar>
+          <Bar data={data} options={options}></Bar>
         </DialogContent>
         {/* <DialogActions>
           <Button autoFocus onClick={handleClose}>

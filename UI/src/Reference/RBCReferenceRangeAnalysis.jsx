@@ -8,175 +8,148 @@ function RBCReferenceRangeAnalysis() {
         <h2 style={{ textAlign: "center" }}>RBC Reference Range Analysis</h2>
         <SegmentedBarChart
           name="RBC"
-          value={4.94}
+          value={3.20}
           units="m/mlC"
           first={true}
-          key={1}
-          range={[
-            [3.35, "red", "Alarm"],
-            [3.72, "orange", "<Lab"],
-            [4.09, "yellow", "Lab"],
-            [4.46, "green", "Optimal"],
-            [4.83, "green", "Optimal"],
-            [5.2, "yellow", "Lab"],
-            [5.57, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[2.98, 5.94]}
         />
-        <br />
+        {/* <br />
         <SegmentedBarChart
           name="HGB"
           value={3.94}
           units="g/dL"
           first={false}
-          key={2}
-          range={[
-            [3.35, "red", "Alarm"],
-            [3.72, "orange", "<Lab"],
-            [4.09, "yellow", "Lab"],
-            [4.46, "green", "Optimal"],
-            [4.83, "green", "Optimal"],
-            [5.2, "yellow", "Lab"],
-            [5.57, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[2.98, 5.94]}
         />
         <br />
         <SegmentedBarChart
           name="HCT"
           value={4.04}
-          key={3}
           units="%"
           first={false}
-          range={[
-            [3.35, "red", "Alarm"],
-            [3.72, "orange", "<Lab"],
-            [4.09, "yellow", "Lab"],
-            [4.46, "green", "Optimal"],
-            [4.83, "green", "Optimal"],
-            [5.2, "yellow", "Lab"],
-            [5.57, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[2.98, 5.94]}
         />
         <br />
         <SegmentedBarChart
           name="MCV"
           value={5.94}
-          key={4}
           units="fL"
           first={false}
-          range={[
-            [3.35, "red", "Alarm"],
-            [3.72, "orange", "<Lab"],
-            [4.09, "yellow", "Lab"],
-            [4.46, "green", "Optimal"],
-            [4.83, "green", "Optimal"],
-            [5.2, "yellow", "Lab"],
-            [5.57, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[2.98, 5.94]}
         />
         <br />
         <SegmentedBarChart
           name="MCH"
-          key={5}
           value={4.54}
           units="pg"
           first={false}
-          range={[
-            [3.35, "red", "Alarm"],
-            [3.72, "orange", "<Lab"],
-            [4.09, "yellow", "Lab"],
-            [4.46, "green", "Optimal"],
-            [4.83, "green", "Optimal"],
-            [5.2, "yellow", "Lab"],
-            [5.57, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[2.98, 5.94]}
         />
         <br />
         <SegmentedBarChart
           name="MCHC"
-          key={6}
           value={5.94}
           units="g/dL"
           first={false}
-          range={[
-            [3.35, "red", "Alarm"],
-            [3.72, "orange", "<Lab"],
-            [4.09, "yellow", "Lab"],
-            [4.46, "green", "Optimal"],
-            [4.83, "green", "Optimal"],
-            [5.2, "yellow", "Lab"],
-            [5.57, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[2.98, 5.94]}
         />
         <br />
         <SegmentedBarChart
           name="RDW"
           value={3.94}
-          key={7}
           units="%"
           first={false}
-          range={[
-            [3.35, "red", "Alarm"],
-            [3.72, "orange", "<Lab"],
-            [4.09, "yellow", "Lab"],
-            [4.46, "green", "Optimal"],
-            [4.83, "green", "Optimal"],
-            [5.2, "yellow", "Lab"],
-            [5.57, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[2.98, 5.94]}
         />
         <br />
         <SegmentedBarChart
           name="CRC"
-          value={4.94}
-          key={8}
+          value={1.4}
           units="%"
           first={false}
-          range={[
-            [3.35, "red", "Alarm"],
-            [3.72, "orange", "<Lab"],
-            [4.09, "yellow", "Lab"],
-            [4.46, "green", "Optimal"],
-            [4.83, "green", "Optimal"],
-            [5.2, "yellow", "Lab"],
-            [5.57, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[2.98, 5.94]}
         />
         <br />
         <SegmentedBarChart
           name="RPI"
-          value={1.22}
+          value={3.22}
           units=""
-          key={9}
           first={false}
-          range={[
-            [0.25, "red", "Alarm"],
-            [0.5, "orange", "<Lab"],
-            [1, "yellow", "Lab"],
-            [1.5, "green", "Optimal"],
-            [2, "green", "Optimal"],
-            [3, "yellow", "Lab"],
-            [5, "orange", ">Lab"],
-            ["", "red", "Alarm"],
+          referenceValues= {[
+            { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+            { id: "lab-one", color: "orange", min: 3.35, max: 3.72 },
+            { id: "lab-two", color: "yellow", min: 3.72, max: 4.09 },
+            { id: "optimal", color: "green", min: 4.09, max: 4.83 },
+            { id: "lab-three", color: "yellow", min: 4.83, max: 5.2 },
+            { id: "lab-four", color: "orange", min: 5.2, max: 5.57 },
+            { id: "alarm-two", color: "red", min: 5.7, max: 6.07 },
           ]}
-          finalrange={[0.25, 6]}
         />
-        <br />
+        <br /> */}
       </div>
     </>
   );
