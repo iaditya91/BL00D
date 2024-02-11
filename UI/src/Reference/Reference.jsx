@@ -55,7 +55,7 @@ function Reference() {
           backgroundColor: "#27AE60",
         }}
       >
-        REFERENCE RANGES
+        SELECT BIOMARKER
       </Button>
 
       <div

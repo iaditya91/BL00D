@@ -10,13 +10,43 @@ function Recomendations() {
           position: "absolute",
           width: "328px",
           height: "47px",
-          top: "40px",
+          top: "50px",
           left: "116px",
           border: "1px",
           backgroundColor: "#27AE60",
         }}
       >
-        RECOMENDATIONS
+        HEALTH DATA RECOMENDATIONS
+      </Button>
+
+      <Button
+        variant="contained"
+        style={{
+          position: "absolute",
+          width: "328px",
+          height: "47px",
+          top: "50px",
+          left: "510px",
+          border: "1px",
+          backgroundColor: "#27AE60",
+        }}
+      >
+        FOOD & DIETRY PRECAUTIONS
+      </Button>
+
+      <Button
+        variant="contained"
+        style={{
+          position: "absolute",
+          width: "328px",
+          height: "47px",
+          top: "50px",
+          left: "958px",
+          border: "1px",
+          backgroundColor: "#27AE60",
+        }}
+      >
+        RECOMMENDED DOCTORS
       </Button>
 
       <Button

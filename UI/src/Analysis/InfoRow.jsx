@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import SegmentedBarChart from "../Reference/SegmentedBarChart";
 
 function InfoRow({ name, desc, normalRange, value, units, lineValues }) {
   return (
@@ -26,7 +27,7 @@ function InfoRow({ name, desc, normalRange, value, units, lineValues }) {
           <br />
           {units}
         </div>
-        <div className="item1">line</div>
+        <div className="item1"><SegmentedBarChart/></div>
         <div className="item1">
           <KeyboardArrowDownIcon />
           <br />
