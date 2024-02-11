@@ -4,6 +4,7 @@ import Recomendations from "./Recomendations";
 import Reference from "./Reference/Reference";
 import Home from "./Home";
 import Analysis from "./Analysis/Analysis";
+import SegmentedLine from "./Analysis/SegmentedLine";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/recomendations" Component={Recomendations} />
         <Route path="/reference" Component={Reference} />
         <Route path="/analysis" Component={Analysis} />
+        <Route path="/segmentLine" Component={SegmentedLine} />
       </Routes>
     </Router>
   );

@@ -30,13 +30,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const SegmentedBarChart = ({
-  name,
-  value,
-  units,
-  first,
-  referenceValues,
-}) => {
+const SegmentedBarChart = ({ name, value, units, first, referenceValues }) => {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -95,15 +89,15 @@ const SegmentedBarChart = ({
     transform: "translateX(-100%)",
     fontSize: "12px",
     color: "#333",
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
   };
 
   const bloodMarkerPosition = (r) => {
-    console.log('entered blood position: ', value);
+    console.log("entered blood position: ", value);
     let bloodPostion = ((value - r.min) / (r.max - r.min)) * 100;
     console.log(bloodPostion);
-    return bloodPostion;}
- 
+    return bloodPostion;
+  };
 
   const data = {
     labels: ["Mon", "Tue", "Wed"],
@@ -120,8 +114,12 @@ const SegmentedBarChart = ({
   const options = {};
 
   const generateBar = (ref, index) => {
-     (ref.id === "optimal") ? segmentStyle = { ...segmentStyle, flex: "2" }: segmentStyle = { ...segmentStyle, flex: "1" };
-     (ref.id === "optimal") ? annotationStyleTop = { ...annotationStyleTop, left: "65%" }: annotationStyleTop = { ...annotationStyleTop, left: "80%" };
+    ref.id === "optimal"
+      ? (segmentStyle = { ...segmentStyle, flex: "2" })
+      : (segmentStyle = { ...segmentStyle, flex: "1" });
+    ref.id === "optimal"
+      ? (annotationStyleTop = { ...annotationStyleTop, left: "65%" })
+      : (annotationStyleTop = { ...annotationStyleTop, left: "80%" });
     return (
       <>
         <div
@@ -132,13 +130,14 @@ const SegmentedBarChart = ({
           <div style={annotationStyleBottom}>{ref.max}</div>
           {console.log(name, value, ref.min, ref.max)}
           {/* value>=ref.min && value<=ref.max */}
-          {(value>=ref.min && value<=ref.max) && 
-          <div
-          style={{
-            ...bloodDropStyle,
-            left: `calc(${bloodMarkerPosition(ref, value)}}% - 10px)`,
-          }}
-        ></div>}
+          {value >= ref.min && value <= ref.max && (
+            <div
+              style={{
+                ...bloodDropStyle,
+                left: `calc(${bloodMarkerPosition(ref, value)}}% - 10px)`,
+              }}
+            ></div>
+          )}
         </div>
       </>
     );
@@ -188,11 +187,6 @@ const SegmentedBarChart = ({
           </Typography>
           <Bar data={data} options={options}></Bar>
         </DialogContent>
-        {/* <DialogActions>
-          <Button autoFocus onClick={handleClose}>
-            Close
-          </Button>
-        </DialogActions> */}
       </BootstrapDialog>
     </>
   );
