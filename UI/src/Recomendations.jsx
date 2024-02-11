@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 function Recomendations() {
   return (
     <>
+      <TopBar/>
       <Button
         variant="contained"
         style={{

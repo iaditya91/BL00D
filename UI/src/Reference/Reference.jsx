@@ -4,6 +4,7 @@ import RBCInsights from './RBCInsights';
 import RBCReferenceRangeAnalysis from "./RBCReferenceRangeAnalysis";
 import axios from '../api/axios1';
 import { useNavigate } from "react-router-dom";
+import TopBar from '../TopBar';
 
 function Reference() {
   const [data, setData] = useState(null);
@@ -39,24 +40,11 @@ function Reference() {
 
   return (
     <>
+    <TopBar/>
     {loading ? (
         <div>Loading spinner...</div>
       ) :  (
     <>
-      <Button
-        variant="contained"
-        style={{
-          position: "absolute",
-          width: "328px",
-          height: "47px",
-          top: "21px",
-          left: "148px",
-          border: "1px",
-          backgroundColor: "#27AE60",
-        }}
-      >
-        SELECT BIOMARKER
-      </Button>
 
       <div
         style={{
