@@ -1,8 +1,21 @@
 import React, { useState } from "react";
-import LightModeIcon from '@mui/icons-material/LightMode';
-import MenuIcon from '@mui/icons-material/Menu';
+import LightModeIcon from "@mui/icons-material/LightMode";
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { useNavigate } from "react-router-dom";
 
 const TopBar = () => {
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div
       className="TopBar"
@@ -51,9 +64,26 @@ const TopBar = () => {
           </a>
         </div>
         <div className="item4">
-          <a style={{ textDecoration: "none", color: "black" }} href="">
-            <MenuIcon />
-          </a>
+          {/* <a style={{ textDecoration: "none", color: "black" }} href=""> */}
+            <MenuIcon
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            />
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={(e)=> navigate("/reference")}>Reference</MenuItem>
+              <MenuItem onClick={(e)=> navigate("/analysis")}>Analysis</MenuItem>
+              <MenuItem onClick={(e)=> navigate("/recomendations")}>Recommendation</MenuItem>
+            </Menu>
         </div>
       </div>
     </div>
