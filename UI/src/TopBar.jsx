@@ -45,7 +45,7 @@ const TopBar = () => {
       >
         <div className="item1">
           <a style={{ textDecoration: "none", color: "black" }} href="">
-            Home
+          <div onClick={() => navigate("/")}>Home</div>
           </a>
         </div>
         <div className="item2">
@@ -79,10 +79,9 @@ const TopBar = () => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={(e)=> navigate("/reference")}>Reference</MenuItem>
-              <MenuItem onClick={(e)=> navigate("/analysis")}>Analysis</MenuItem>
-              <MenuItem onClick={(e)=> navigate("/segmentLine")}>Segment Line</MenuItem>
-              <MenuItem onClick={(e)=> navigate("/recomendations")}>Recommendation</MenuItem>
+              <MenuItem onClick={()=> navigate("/reference")}>Reference</MenuItem>
+              <MenuItem onClick={()=> navigate("/analysis")}>Analysis</MenuItem>
+              <MenuItem onClick={()=> navigate("/recomendations")}>Recommendation</MenuItem>
             </Menu>
         </div>
       </div>
