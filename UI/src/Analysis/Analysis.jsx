@@ -54,49 +54,53 @@ function Analysis() {
             [315, "red"],
           ]}
         />
-        <strong>Creatinine</strong>
+        <div
+          style={{padding: '5px 0px'}}>
+          <strong>Creatinine</strong>
 
-        <div style={{ display: "flex" }}>
-          <LineChart />
-          <div
-            style={{
-              border: "1px solid black",
-              padding: "5px",
-              height: "200px",
-            }}
-          >
-            <strong>About Creatimine</strong>
-            <p>something about something</p>
+          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <LineChart />
+            <div
+              style={{
+                border: "1px solid black",
+                padding: "5px",
+                height: "200px",
+              }}
+            >
+              <strong>About Creatimine</strong>
+              <p>something about something</p>
+            </div>
           </div>
         </div>
       </>
     );
   };
 
-
-const borderLineUI = () =>{
-  return (<>
-  <div>
-        <h3>Latest Borderline</h3>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ height: "40px", paddingBottom: "5px" }}>
-            <InfoRow
-              name="Total Cholesterol"
-              desc="total cholestrol"
-              normalRange={[100, 200]}
-              value="210"
-              units="mg/dl"
-              lineValues={[
-                [200, "green"],
-                [279, "yellow"],
-                [315, "red"],
-              ]}
-            />
+  const borderLineUI = () => {
+    return (
+      <>
+        <div>
+          <h3>Latest Borderline</h3>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ height: "40px", paddingBottom: "5px" }}>
+              <InfoRow
+                name="Total Cholesterol"
+                desc="total cholestrol"
+                normalRange={[100, 200]}
+                value="210"
+                units="mg/dl"
+                lineValues={[
+                  [200, "green"],
+                  [279, "yellow"],
+                  [315, "red"],
+                ]}
+              />
+            </div>
           </div>
         </div>
-      </div>
-  </>);
-}
+      </>
+    );
+  };
 
   return (
     <>
@@ -143,8 +147,6 @@ const borderLineUI = () =>{
         {risksUI()}
         {borderLineUI()}
       </div>
-
-      
     </>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SegmentedBarChart from "./SegmentedBarChart";
+import { Button } from "@mui/material";
 
 function RBCReferenceRangeAnalysis() {
   return (
@@ -150,6 +151,12 @@ function RBCReferenceRangeAnalysis() {
           ]}
         />
         <br />
+        
+      </div>
+      <div style={{position: 'relative', display: 'flex', flexDirection: 'row', left: '40%', justifyContent: 'space-between', width: '20%'}}
+      >
+              <Button variant="contained" style={{backgroundColor: 'grey', height: '25px'}}>Left</Button>
+              <Button variant="contained" style={{backgroundColor: 'grey', height: '25px'}}>Right</Button>
       </div>
     </>
   );

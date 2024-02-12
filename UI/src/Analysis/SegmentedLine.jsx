@@ -46,7 +46,6 @@ const SegmentedLine = () => {
         position: "relative",
         width: "20%",
         height: "5px",
-        // flex: 1,
       };
 
       const segmentedBarStyle = {
