@@ -64,7 +64,6 @@ const TopBar = () => {
           </a>
         </div>
         <div className="item4">
-          {/* <a style={{ textDecoration: "none", color: "black" }} href=""> */}
             <MenuIcon
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
@@ -82,6 +81,7 @@ const TopBar = () => {
             >
               <MenuItem onClick={(e)=> navigate("/reference")}>Reference</MenuItem>
               <MenuItem onClick={(e)=> navigate("/analysis")}>Analysis</MenuItem>
+              <MenuItem onClick={(e)=> navigate("/segmentLine")}>Segment Line</MenuItem>
               <MenuItem onClick={(e)=> navigate("/recomendations")}>Recommendation</MenuItem>
             </Menu>
         </div>

@@ -27,9 +27,10 @@ const SegmentedLine = () => {
         bottom: "0px",
         width: "0",
         height: "0",
+        top: "-15px",
         borderLeft: "10px solid transparent",
         borderRight: "10px solid transparent",
-        borderBottom: "15px solid #000000",
+        borderTop: "15px solid #000000",
       };
 
       const annotationStyleBottom = {
@@ -44,12 +45,12 @@ const SegmentedLine = () => {
     let segmentStyle = {
         position: "relative",
         width: "20%",
-        height: "35px",
+        height: "5px",
         // flex: 1,
       };
 
       const segmentedBarStyle = {
-        width: "100%",
+        width: "350px",
         flexDirection: "row",
         display: "flex",
         position: "relative",
