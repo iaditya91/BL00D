@@ -1,21 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
+import axios1 from "./api/axios1";
 import TopBar from "./TopBar";
 
 function Recomendations() {
+  const [recommendationData, setRecommendationData] = useState([
+    "1. endurance: something about endurance",
+  ]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async (fileId, queryPrompt) => {
+    try {
+      console.log("inside fetch data", fileId, queryPrompt);
+      const healthRecomResponse = await axios1.get(
+        `/generate_text/${fileId}/${queryPrompt}`,
+        {
+          headers: {
+            "Content-Type": "application/json", // Example of another header
+            Accept: "*/*",
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
+      console.log("response data:", healthRecomResponse.data);
+      if (healthRecomResponse.data !== null) {
+        setRecommendationData(healthRecomResponse.data);
+        console.log("setted page data:", recommendationData);
+        setLoading(false); // Set loading to false when API call succeeds
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      //setLoading(false); // Set loading to false even if API call fails
+    }
+  };
+
+  useEffect(() => {
+    fetchData("16", "healthdatarecommendations");
+  }, []);
+
   return (
     <>
-      <TopBar/>
+      <TopBar />
       <Button
         variant="contained"
         style={{
           position: "absolute",
           width: "328px",
           height: "47px",
-          top: "50px",
+          top: "80px",
           left: "116px",
           border: "1px",
           backgroundColor: "#27AE60",
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          fetchData("16", "healthdatarecommendations");
         }}
       >
         HEALTH DATA RECOMENDATIONS
@@ -27,10 +66,14 @@ function Recomendations() {
           position: "absolute",
           width: "328px",
           height: "47px",
-          top: "50px",
+          top: "80px",
           left: "510px",
           border: "1px",
           backgroundColor: "#27AE60",
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          fetchData("16", "fooddietprecautions");
         }}
       >
         FOOD & DIETRY PRECAUTIONS
@@ -42,42 +85,54 @@ function Recomendations() {
           position: "absolute",
           width: "328px",
           height: "47px",
-          top: "50px",
+          top: "80px",
           left: "958px",
           border: "1px",
           backgroundColor: "#27AE60",
         }}
-      >
-        RECOMMENDED DOCTORS
-      </Button>
-
-      <Button
-        variant="contained"
-        style={{
-          position: "absolute",
-          width: "126px",
-          height: "21px",
-          top: "190px",
-          left: "632px",
-          backgroundColor: "#7A7CFF",
+        onClick={(e) => {
+          e.preventDefault();
+          fetchData("16", "fooddietprecautions");
         }}
       >
-        ENDURANCE
+        RECOMMENDED DOCTORS
       </Button>
 
       <div
         style={{
           position: "absolute",
           width: "1183px",
-          height: "746px",
-          top: "211px",
+          height: "546px",
+          top: "171px",
           left: "104px",
-          textAlign:"center",
+          textAlign: "center",
           alignContent: "center",
-          textTransform:"uppercase"
+          textTransform: "uppercase",
         }}
       >
-        
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div>
+            {recommendationData.map((item, index) => (
+              <div key={index}>
+                {/* Display your data here */}
+                <p>{item}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* {loading ? (
+        <div>Loading spinner...</div>
+      ) : (
+        {data && data.length > 0 ? (
+          data.map((data, index) => {
+            <p key={index}>{data}</p>;
+          })
+        ) 
+        } */}
+        {/* <h4 style={{margin: "7px 0px 0px 0px"}}>Endurance:</h4>     
 Ferritin, Iron Serum, Hematocrit, and RBC levels are within the normal range, suggesting good endurance.
 Ensure a balanced diet with sufficient iron-rich foods to maintain these levels.
 
@@ -117,7 +172,7 @@ Stay hydrated and maintain a healthy lifestyle to support kidney function.
 <h4 style={{margin: "7px 0px 0px 0px"}}>Overall:</h4>
 Consider a well-balanced diet rich in fruits, vegetables, lean proteins, and whole grains.
 Engage in regular physical activity.
-Manage stress through relaxation techniques.
+Manage stress through relaxation techniques. */}
       </div>
     </>
   );
