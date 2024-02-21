@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Button from "@mui/material/Button";
+import React, { useState, useEffect } from "react";
 import LineChart from "./LineChart";
 import InfoRow from "./InfoRow";
 import TopBar from "../TopBar";
@@ -8,13 +7,46 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import axios1 from "../api/axios1";
 
 function Analysis() {
-  const [biomarker, setBiomarker] = React.useState("");
+  const [selectedBiomarker, setSelectedBiomarker] = React.useState(null);
+  const [currentBiomarkers, setCurrentBiomarkers] = React.useState("");
+  const [pageLoading, setPageLoading] = useState(true);
+  const [bioMarkerLoading, setBioMarkerLoading] = useState(true);
 
   const handleSelectBioMarkerChange = (event) => {
-    setBiomarker(event.target.value);
+    setSelectedBiomarker(event.target.value);
   };
+
+  const fetchBioMarkersFromExcel = async () => {
+    try {
+      console.log("inside fetch biomarkers");
+      const bioMarkersResponse = await axios1.get(
+        `/generate_text/get_excel_data_biomarkers/16`,
+        {
+          headers: {
+            "Content-Type": "application/json", // Example of another header
+            Accept: "*/*",
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
+      console.log("response data:", bioMarkersResponse.data);
+      if (bioMarkersResponse.data !== null) {
+        setCurrentBiomarkers(bioMarkersResponse.data);
+        console.log("setted current biomarkers data:", currentBiomarkers);
+        pageLoading(false); // Set loading to false when API call succeeds
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      //setLoading(false); // Set loading to false even if API call fails
+    }
+  };
+
+  useEffect(() => {
+    fetchBioMarkersFromExcel();
+  }, []);
 
   const selectBioMarkerUI = () => {
     return (
@@ -26,7 +58,7 @@ function Analysis() {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={biomarker}
+            value={selectedBiomarker}
             onChange={handleSelectBioMarkerChange}
           >
             <MenuItem value={10}>Total Cholesterol</MenuItem>
@@ -38,7 +70,7 @@ function Analysis() {
     );
   };
 
-  const risksUI = () => {
+  const risksUI = (selectedBiomarker) => {
     return (
       <>
         <h2>Risks</h2>
@@ -76,7 +108,7 @@ function Analysis() {
     );
   };
 
-  const borderLineUI = () => {
+  const borderLineUI = (selectedBiomarker) => {
     return (
       <>
         <div>
@@ -119,7 +151,7 @@ function Analysis() {
       >
         {selectBioMarkerUI()}
       </div>
-      <div
+      {/* <div
         className="lineChart1"
         style={{
           position: "absolute",
@@ -130,8 +162,8 @@ function Analysis() {
         }}
       >
         <LineChart />
-      </div>
-
+      </div> */}
+     { selectedBiomarker &&
       <div
         className="risks"
         style={{
@@ -144,9 +176,10 @@ function Analysis() {
           padding: "5px",
         }}
       >
-        {risksUI()}
-        {borderLineUI()}
+        {risksUI(selectedBiomarker)}
+        {borderLineUI(selectedBiomarker)}
       </div>
+}
     </>
   );
 }
