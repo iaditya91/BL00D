@@ -8,10 +8,12 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios1 from "../api/axios1";
+import RisksUI from "./RisksUI";
+import BorderLineUI from "./BorderLineUI";
 
 function Analysis() {
-  const [selectedBiomarker, setSelectedBiomarker] = React.useState(null);
-  const [currentBiomarkers, setCurrentBiomarkers] = React.useState("");
+  const [selectedBiomarker, setSelectedBiomarker] = React.useState("");
+  const [currentBiomarkers, setCurrentBiomarkers] = React.useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const [bioMarkerLoading, setBioMarkerLoading] = useState(true);
 
@@ -23,7 +25,7 @@ function Analysis() {
     try {
       console.log("inside fetch biomarkers");
       const bioMarkersResponse = await axios1.get(
-        `/generate_text/get_excel_data_biomarkers/16`,
+        `/get_excel_data_biomarkers/16`,
         {
           headers: {
             "Content-Type": "application/json", // Example of another header
@@ -36,7 +38,7 @@ function Analysis() {
       if (bioMarkersResponse.data !== null) {
         setCurrentBiomarkers(bioMarkersResponse.data);
         console.log("setted current biomarkers data:", currentBiomarkers);
-        pageLoading(false); // Set loading to false when API call succeeds
+        setPageLoading(false); // Set loading to false when API call succeeds
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -61,78 +63,20 @@ function Analysis() {
             value={selectedBiomarker}
             onChange={handleSelectBioMarkerChange}
           >
-            <MenuItem value={10}>Total Cholesterol</MenuItem>
-            <MenuItem value={20}>Creatinine</MenuItem>
-            <MenuItem value={30}>Vitamin D</MenuItem>
+            {currentBiomarkers && currentBiomarkers.length>0 && currentBiomarkers.map((biomarker, index) => (
+              <MenuItem key={index} value={biomarker}>
+                {biomarker}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
       </Box>
     );
   };
 
-  const risksUI = (selectedBiomarker) => {
-    return (
-      <>
-        <h2>Risks</h2>
-        <InfoRow
-          name="Total Cholesterol"
-          desc="total cholestrol"
-          normalRange={[100, 200]}
-          value="210"
-          units="mg/dl"
-          lineValues={[
-            [200, "green"],
-            [279, "yellow"],
-            [315, "red"],
-          ]}
-        />
-        <div
-          style={{padding: '5px 0px'}}>
-          <strong>Creatinine</strong>
+  
 
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <LineChart />
-            <div
-              style={{
-                border: "1px solid black",
-                padding: "5px",
-                height: "200px",
-              }}
-            >
-              <strong>About Creatimine</strong>
-              <p>something about something</p>
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  };
 
-  const borderLineUI = (selectedBiomarker) => {
-    return (
-      <>
-        <div>
-          <h3>Latest Borderline</h3>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ height: "40px", paddingBottom: "5px" }}>
-              <InfoRow
-                name="Total Cholesterol"
-                desc="total cholestrol"
-                normalRange={[100, 200]}
-                value="210"
-                units="mg/dl"
-                lineValues={[
-                  [200, "green"],
-                  [279, "yellow"],
-                  [315, "red"],
-                ]}
-              />
-            </div>
-          </div>
-        </div>
-      </>
-    );
-  };
 
   return (
     <>
@@ -163,23 +107,23 @@ function Analysis() {
       >
         <LineChart />
       </div> */}
-     { selectedBiomarker &&
-      <div
-        className="risks"
-        style={{
-          position: "absolute",
-          width: "850px",
-          height: "590px",
-          top: "85px",
-          left: "720px",
-          border: "1px solid black",
-          padding: "5px",
-        }}
-      >
-        {risksUI(selectedBiomarker)}
-        {borderLineUI(selectedBiomarker)}
-      </div>
-}
+      {selectedBiomarker && (
+        <div
+          className="risks"
+          style={{
+            position: "absolute",
+            width: "850px",
+            height: "590px",
+            top: "85px",
+            left: "720px",
+            border: "1px solid black",
+            padding: "5px",
+          }}
+        >
+          {<RisksUI biomarker = {selectedBiomarker}/>}
+          {<BorderLineUI/>}
+        </div>
+      )}
     </>
   );
 }

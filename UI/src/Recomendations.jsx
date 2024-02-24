@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Button from "@mui/material/Button";
 import axios1 from "./api/axios1";
 import TopBar from "./TopBar";
 
 function Recomendations() {
-  const [recommendationData, setRecommendationData] = useState([
-    "1. endurance: something about endurance",
-  ]);
+  const [recommendationData, setRecommendationData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const hasMounted = useRef(false);
 
   const fetchData = async (fileId, queryPrompt) => {
     try {
+      setLoading(true);
       console.log("inside fetch data", fileId, queryPrompt);
       const healthRecomResponse = await axios1.get(
         `/generate_text/${fileId}/${queryPrompt}`,
@@ -30,12 +30,14 @@ function Recomendations() {
       }
     } catch (error) {
       console.error("Error fetching data:", error);
-      //setLoading(false); // Set loading to false even if API call fails
+      setLoading(false); // Set loading to false even if API call fails
     }
   };
 
   useEffect(() => {
+    console.log("inside useeffect");
     fetchData("16", "healthdatarecommendations");
+    hasMounted.current = true;
   }, []);
 
   return (
@@ -116,63 +118,11 @@ function Recomendations() {
           <div>
             {recommendationData.map((item, index) => (
               <div key={index}>
-                {/* Display your data here */}
                 <p>{item}</p>
               </div>
             ))}
           </div>
         )}
-
-        {/* {loading ? (
-        <div>Loading spinner...</div>
-      ) : (
-        {data && data.length > 0 ? (
-          data.map((data, index) => {
-            <p key={index}>{data}</p>;
-          })
-        ) 
-        } */}
-        {/* <h4 style={{margin: "7px 0px 0px 0px"}}>Endurance:</h4>     
-Ferritin, Iron Serum, Hematocrit, and RBC levels are within the normal range, suggesting good endurance.
-Ensure a balanced diet with sufficient iron-rich foods to maintain these levels.
-
- <h4 style={{margin: "7px 0px 0px 0px"}}>Heart Health:</h4> 
-Cholesterol levels are generally within the normal range.
-Maintain a heart-healthy diet, low in saturated fats and cholesterol.
-Regular physical activity is important for overall cardiovascular health.
-
-<h4 style={{margin: "7px 0px 0px 0px"}}>Inflammation:</h4>
-WBC count is within the normal range.
-Monitor and manage inflammation by maintaining a healthy lifestyle, including regular exercise, a balanced diet, and stress management.
-
-<h4 style={{margin: "7px 0px 0px 0px"}}>Metabolism:</h4>
-Glucose and Hemoglobin A1C levels are within the normal range.
-Continue to monitor blood glucose levels, maintain a healthy diet, and engage in regular physical activity.
-
-<h4 style={{margin: "7px 0px 0px 0px"}}>Recovery:</h4>
-Albumin levels are within the  normal range, indicating good recovery.
-Adequate hydration and a balanced diet are crucial for recovery.
-
-<h4 style={{margin: "7px 0px 0px 0px"}}>Liver Function:</h4>
-ALT levels are within the normal range.
-Limit alcohol intake, maintain a healthy weight, and consider liver-friendly foods.
-
-<h4 style={{margin: "7px 0px 0px 0px"}}>Electrolytes:</h4>
-Sodium and potassium levels are within the normal range.
-Ensure a balanced intake of electrolyte-rich foods and stay hydrated.
-
-<h4 style={{margin: "7px 0px 0px 0px"}}>Thyroid Function:</h4>
-Thyroid-related markers (T3 Total Serum, Thyroid Stimulating Hormone) are within the normal range.
-Regular monitoring and consultation with an endocrinologist are advisable.
-
-<h4 style={{margin: "7px 0px 0px 0px"}}>Kidney Function:</h4>
-Creatinine levels are within the normal range.
-Stay hydrated and maintain a healthy lifestyle to support kidney function.
-
-<h4 style={{margin: "7px 0px 0px 0px"}}>Overall:</h4>
-Consider a well-balanced diet rich in fruits, vegetables, lean proteins, and whole grains.
-Engage in regular physical activity.
-Manage stress through relaxation techniques. */}
       </div>
     </>
   );

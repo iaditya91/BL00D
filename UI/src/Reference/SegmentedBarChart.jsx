@@ -93,9 +93,7 @@ const SegmentedBarChart = ({ name, value, units, first, referenceValues }) => {
   };
 
   const bloodMarkerPosition = (r) => {
-    console.log("entered blood position: ", value);
     let bloodPostion = ((value - r.min) / (r.max - r.min)) * 100;
-    console.log(bloodPostion);
     return bloodPostion;
   };
 
@@ -128,7 +126,6 @@ const SegmentedBarChart = ({ name, value, units, first, referenceValues }) => {
         >
           {first && <div style={annotationStyleTop}>{ref && ref.id}</div>}
           <div style={annotationStyleBottom}>{ref.max}</div>
-          {console.log(name, value, ref.min, ref.max)}
           {/* value>=ref.min && value<=ref.max */}
           {value >= ref.min && value <= ref.max && (
             <div
