@@ -74,9 +74,6 @@ function Analysis() {
     );
   };
 
-  
-
-
 
   return (
     <>
@@ -95,18 +92,7 @@ function Analysis() {
       >
         {selectBioMarkerUI()}
       </div>
-      {/* <div
-        className="lineChart1"
-        style={{
-          position: "absolute",
-          width: "588px",
-          height: "314px",
-          top: "230px",
-          left: "102px",
-        }}
-      >
-        <LineChart />
-      </div> */}
+
       {selectedBiomarker && (
         <div
           className="risks"
@@ -121,7 +107,7 @@ function Analysis() {
           }}
         >
           {<RisksUI biomarker = {selectedBiomarker}/>}
-          {<BorderLineUI/>}
+          {<BorderLineUI biomarker= {selectedBiomarker}/>}
         </div>
       )}
     </>
