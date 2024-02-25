@@ -55,7 +55,7 @@ const SegmentedBarChart = ({ name, value, units, first, referenceValues }) => {
 
   let segmentStyle = {
     position: "relative",
-    width: "80px",
+    width: "120px",
     height: "35px",
     flex: 1,
     // backgroundColor: "#3498db",
@@ -145,11 +145,12 @@ const SegmentedBarChart = ({ name, value, units, first, referenceValues }) => {
       <div style={chartContainerStyle}>
         <div style={segmentedBarStyle}>
           <div
-            style={{ ...segmentStyle, fontSize: "14px", textAlign: "center" }}
+            style={{ ...segmentStyle, fontSize: "12px", textAlign: "center" }}
           >
-            <p style={{ padding: "0px", margin: "0px" }}>
+            <div style={{ padding: "0px", margin: "0px" }}>
+            {/* {name} */}
               {name} <BarChartIcon onClick={handleClickOpen} />
-            </p>{" "}
+            </div>{" "}
             {value} {units}
           </div>
           {referenceValues &&
