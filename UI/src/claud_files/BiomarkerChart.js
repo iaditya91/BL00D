@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 function BiomarkerChart() {
   return (
     <div>
+      <Navbar/>
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">Risks</h2>
         <select className="border p-2">

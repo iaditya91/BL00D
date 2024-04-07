@@ -1,8 +1,10 @@
 import React from 'react';
+import Navbar from './Navbar';
 
 function LatestBorderline() {
   return (
     <div>
+      <Navbar />
       <h2 className="text-xl font-bold mb-4">Latest Borderline</h2>
       <div className="bg-gray-100 p-4">
         <div className="flex items-center justify-between">

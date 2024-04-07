@@ -5,8 +5,9 @@ import Reference from "./Reference/Reference";
 import Home from "./Home";
 import Analysis from "./Analysis/Analysis";
 import SegmentedLine from "./Analysis/SegmentedLine";
-import Navbar from "./Navbar";
-import Dashboard from "./Dashboard";
+import BiomarkerChart from "./claud_files/BiomarkerChart";
+import Dashboard from "./claud_files/Dashboard";
+import LatestBorderline from "./claud_files/LatestBorderline";
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Route path="/reference" Component={Reference} />
         <Route path="/analysis" Component={Analysis} />
         <Route path="/segmentLine" Component={SegmentedLine} />
-        <Route path="/trail" Component={Navbar} />
-        <Route path="/trail2" Component={Dashboard} />
+        <Route path="/trail1" Component={Dashboard} />
+        <Route path="/trail2" Component={BiomarkerChart} />
+        <Route path="/trail3" Component={LatestBorderline} />
       </Routes>
     </Router>
   );
