@@ -7,25 +7,31 @@ import { useNavigate } from "react-router-dom";
 import TopBar from '../TopBar';
 
 function Reference() {
+  
+  const [selectedReference, setSelectedReference] = useState("");
+
+  const handleInsightsStateChange = (reference) => {
+    // Update the parent state when child state changes
+    setSelectedReference(reference);
+  };
 
 
   return (
     <>
     <TopBar/>
     <>
-
+      {selectedReference &&
       <div
         style={{
           position: "absolute",
           width: "364px",
           height: "760px",
-          top: "79px",
+          top: "150px",
           left: "148px",
-          border: "1px solid black"
         }}
       >
-        <RBCInsights/>
-      </div>
+        <RBCInsights reference={selectedReference}/>
+      </div> }
 
       <div
         style={{
@@ -33,11 +39,10 @@ function Reference() {
           width: "1000px",
           height: "795px",
           top: "79px",
-          left: "600px",
-          border: "1px solid black"
+          left: "700px",
         }}
       >
-        <RBCReferenceRangeAnalysis/>
+        <RBCReferenceRangeAnalysis onInsightsStateChange={handleInsightsStateChange}/>
       </div>
     </>
     </>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
@@ -30,8 +30,22 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const SegmentedBarChart = ({ name, value, units, first, referenceValues }) => {
+const SegmentedBarChart = ({
+  name,
+  value,
+  units,
+  first,
+  referenceValues,
+  onInsightsStateChange,
+}) => {
   const [open, setOpen] = React.useState(false);
+  const [selectedReference, setSelectedReference] = useState("");
+
+  const handleInsightsChange = (reference) => {
+    setSelectedReference(reference);
+    // Call the callback function passed from the parent
+    onInsightsStateChange(reference);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -148,8 +162,9 @@ const SegmentedBarChart = ({ name, value, units, first, referenceValues }) => {
             style={{ ...segmentStyle, fontSize: "12px", textAlign: "center" }}
           >
             <div style={{ padding: "0px", margin: "0px" }}>
-            {/* {name} */}
-              {name} <BarChartIcon onClick={handleClickOpen} />
+              {/* {name} */}
+              {name} <BarChartIcon onClick={() => handleInsightsChange(name)} />
+              {/* <BarChartIcon onClick={handleClickOpen} /> */}
             </div>{" "}
             {value} {units}
           </div>

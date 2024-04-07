@@ -102,7 +102,7 @@ function Analysis() {
             height: "590px",
             top: "85px",
             left: "720px",
-            border: "1px solid black",
+            // border: "1px solid black",
             padding: "5px",
           }}
         >

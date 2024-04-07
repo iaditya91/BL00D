@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import RBCGauge from "./RBCGaugle";
 
-function RBCInsights() {
+function RBCInsights({reference}) {
+
+
   return (
     <>
       <div style={{ fontFamily: "areal, sans-serif" }}>
@@ -12,17 +14,17 @@ function RBCInsights() {
             <strong>Suboptimal Blood Oxygen Delivery</strong> is Highly Likely
             (98%)
           </p>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <p style={{ border: "1px solid black", padding: "0px 5px" }}>
+          {/* <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+            <p style={{ padding: "0px 5px" }}>
               <strong>RBC Size:</strong> <br />
               Microcytic (Small)
             </p>
-            <p style={{ border: "1px solid black", padding: "0px 5px" }}>
+            <p style={{  padding: "0px 5px" }}>
               <strong>RBC Color:</strong> <br />
               Hypochromic <br />
               (Pale)
             </p>
-          </div>
+          </div> */}
           <p style={{ border: "1px solid black", padding: "0px 5px" }}>
             <strong>Nutrient Insufficiency</strong> is Likely
           </p>

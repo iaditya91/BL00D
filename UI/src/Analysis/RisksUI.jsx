@@ -7,10 +7,12 @@ const RisksUI = ({ biomarker }) => {
   console.log("risk ui, ", biomarker);
   const [loading, setLoading] = useState(true);
   const [bioMarkerInfoData, setBioMarkerInfoData] = React.useState({});
+  const [bioMarkerGraphData, setBioMarkerGraphData] = React.useState({});
+  const [bioMarkerDescData, setBioMarkerDescData] = React.useState("");
 
   const fetchBioMarkerInfo = async (biomarkerName) => {
     try {
-      setLoading(true);
+      // setLoading(true);
       console.log("inside fetch biomarkers");
       const bioMarkerInfoResponse = await axios1.get(
         `/get_biomarker_info/16/${biomarkerName}`,
@@ -26,17 +28,75 @@ const RisksUI = ({ biomarker }) => {
       if (bioMarkerInfoResponse.data !== null) {
         setBioMarkerInfoData(bioMarkerInfoResponse.data);
         console.log("setted current biomarkers data:", bioMarkerInfoData);
-        setLoading(false);
+        // setLoading(false);
       }
-      setLoading(true);
+      // setLoading(true);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(false);
+      // setLoading(false);
+    }
+  };
+
+  const fetchBioMarkerDesc = async (biomarkerName) => {
+    try {
+      // setLoading(true);
+      console.log("inside fetch biomarkers desc");
+      const bioMarkerDescResponse = await axios1.get(
+        `/generate_content/16/${biomarkerName}/about`,
+        {
+          headers: {
+            "Content-Type": "application/json", // Example of another header
+            Accept: "*/*",
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
+      console.log("response data:", bioMarkerDescResponse.data);
+      if (bioMarkerDescResponse.data !== null) {
+        setBioMarkerDescData(bioMarkerDescResponse.data);
+        console.log("setted current biomarkers data:", bioMarkerDescData);
+        // setLoading(false);
+      }
+      // setLoading(true);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // setLoading(false);
+    }
+  };
+
+  const fetchGraphData = async (biomarkerName) => {
+    try {
+      // setLoading(true);
+      console.log("inside fetch biomarkers graph");
+      const bioMarkerGraphResponse = await axios1.get(
+        `/get_excel_data_LineChart/16/${biomarkerName}`,
+        {
+          headers: {
+            "Content-Type": "application/json", // Example of another header
+            Accept: "*/*",
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
+      console.log("graph response data:", bioMarkerGraphResponse.data);
+      if (bioMarkerGraphResponse.data !== null) {
+        setBioMarkerGraphData(bioMarkerGraphResponse.data);
+        console.log("setted current biomarkers data:", bioMarkerGraphData);
+        // setLoading(false);
+      }
+      // setLoading(true);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // setLoading(false);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchBioMarkerInfo(biomarker);
+    fetchBioMarkerDesc(biomarker);
+    fetchGraphData(biomarker);
+    setLoading(false);
     console.log("in useeffect: ", bioMarkerInfoData);
   }, [biomarker]);
 
@@ -59,18 +119,18 @@ const RisksUI = ({ biomarker }) => {
           )}
 
           <div style={{ padding: "5px 0px" }}>
-            <strong>cholestrol</strong>
+            <strong>{biomarker}</strong>
             <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-              <LineChart />
+              <LineChart graphData={bioMarkerGraphData}/>
               <div
                 style={{
-                  border: "1px solid black",
+                  // border: "1px solid black",
                   padding: "5px",
                   height: "200px",
                 }}
               >
-                <strong>About Creatimine</strong>
-                <p>something about something</p>
+                <strong>About {biomarker}</strong>
+                <p>{bioMarkerDescData}</p>
               </div>
             </div>
           </div>
