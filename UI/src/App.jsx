@@ -9,6 +9,7 @@ import BiomarkerChart from "./claud_files/BiomarkerChart";
 import Dashboard from "./claud_files/Dashboard";
 import LatestBorderline from "./claud_files/LatestBorderline";
 import analysispage from "./claud_files/analysispage";
+import RecommendationsPage from "./claud_files/RecommendationsPage";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/reference" Component={Reference} />
         <Route path="/analysis" Component={Analysis} />
         <Route path="/segmentLine" Component={SegmentedLine} /> */}
-        <Route path="/recomendations" Component={Recomendations} />
+        <Route path="/recomendations" Component={RecommendationsPage} />
         <Route path="/reference" Component={Reference} />
         <Route path="/analysis" Component={analysispage} />
         <Route path="/" Component={Dashboard} />
