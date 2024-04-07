@@ -6,6 +6,7 @@ import Home from "./Home";
 import Analysis from "./Analysis/Analysis";
 import SegmentedLine from "./Analysis/SegmentedLine";
 import Navbar from "./Navbar";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/analysis" Component={Analysis} />
         <Route path="/segmentLine" Component={SegmentedLine} />
         <Route path="/trail" Component={Navbar} />
+        <Route path="/trail2" Component={Dashboard} />
       </Routes>
     </Router>
   );

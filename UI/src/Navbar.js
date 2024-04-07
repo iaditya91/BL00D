@@ -8,6 +8,7 @@ const Navbar = () => {
   };
 
   return (
+    <>
     <nav className="bg-white py-4 px-8 flex justify-between items-center shadow">
       <div className="text-lg font-semibold">Health Tracker</div>
       <div className="flex items-center space-x-4">
@@ -42,6 +43,7 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
+    </>
   );
 };
 
