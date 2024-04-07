@@ -29,13 +29,13 @@ const Navbar = () => {
           </div>
           {isDropdownOpen && (
             <div className="absolute right-0 mt-2 bg-white shadow-md rounded-md py-2 w-48 z-10">
-              <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+              <a href="/reference" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
                 Biomarkers Analysis
               </a>
-              <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+              <a href="/analysis" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
                 Biomarker Visuals
               </a>
-              <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+              <a href="/recomendations" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
                 Diet Recommendations
               </a>
             </div>

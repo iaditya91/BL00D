@@ -13,12 +13,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/"  Component={Home} />
+        {/* <Route path="/"  Component={Home} />  */}
         <Route path="/recomendations" Component={Recomendations} />
         <Route path="/reference" Component={Reference} />
         <Route path="/analysis" Component={Analysis} />
         <Route path="/segmentLine" Component={SegmentedLine} />
-        <Route path="/trail1" Component={Dashboard} />
+        <Route path="/" Component={Dashboard} />
         <Route path="/trail2" Component={BiomarkerChart} />
         <Route path="/trail3" Component={LatestBorderline} />
       </Routes>

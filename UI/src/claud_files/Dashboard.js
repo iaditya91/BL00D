@@ -1,7 +1,41 @@
-import React from 'react';
+import React, { useState } from "react";
 import Navbar from './Navbar';
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios1";
+import { Input } from "@mui/material";
 
 const Dashboard = () => {
+  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    // if (!file) {
+    //   alert('Please select a file to upload.');
+    //   return;
+    // }
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // Example POST request using axios to upload file
+      const response = await axios.post('/upload_excel', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      console.log('File uploaded successfully:', response.data);
+      navigate("/reference");
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
       <Navbar />
@@ -18,7 +52,7 @@ const Dashboard = () => {
               >
                 Choose File
               </label>
-              <input id="blood-report-input" type="file" className="hidden" />
+              <input onClick={handleFileChange} id="blood-report-input" type="file" className="hidden" />
               <span className="ml-4 text-gray-500">No file chosen</span>
             </div>
           </div>
