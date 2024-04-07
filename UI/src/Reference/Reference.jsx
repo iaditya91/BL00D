@@ -5,6 +5,7 @@ import RBCReferenceRangeAnalysis from "./RBCReferenceRangeAnalysis";
 import axios from '../api/axios1';
 import { useNavigate } from "react-router-dom";
 import TopBar from '../TopBar';
+import Navbar from '../claud_files/Navbar';
 
 function Reference() {
   
@@ -18,7 +19,7 @@ function Reference() {
 
   return (
     <>
-    <TopBar/>
+    <Navbar/>
     <>
       {selectedReference &&
       <div
@@ -27,7 +28,7 @@ function Reference() {
           width: "364px",
           height: "760px",
           top: "150px",
-          left: "148px",
+          left: "18px",
         }}
       >
         <RBCInsights reference={selectedReference}/>
@@ -38,8 +39,8 @@ function Reference() {
           position: "absolute",
           width: "1000px",
           height: "795px",
-          top: "79px",
-          left: "700px",
+          top: "60px",
+          left: "370px",
         }}
       >
         <RBCReferenceRangeAnalysis onInsightsStateChange={handleInsightsStateChange}/>

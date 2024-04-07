@@ -1,8 +1,9 @@
-// import React, { useState } from "react";
-// import Navbar from './Navbar';
-// import { useNavigate } from "react-router-dom";
-// import axios from "../api/axios1";
-// import { Input } from "@mui/material";
+import React, { useState } from "react";
+import Navbar from './Navbar';
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios1";
+import { Input } from "@mui/material";
+import Button from "@mui/material/Button";
 
 // // const Dashboard = () => {
 // //   const [file, setFile] = useState(null);
@@ -132,11 +133,13 @@
 
 // export default Dashboard;
 
-import React, { useState } from 'react';
-import Navbar from './Navbar';
+// import React, { useState } from 'react';
+// import Navbar from './Navbar';
 
 const Dashboard = () => {
   const [fileName, setFileName] = useState('');
+      const [file, setFile] = useState(null);
+    const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -145,6 +148,26 @@ const Dashboard = () => {
     } else {
       setFileName('');
     }
+        setFile(event.target.files[0]);
+  };
+
+    const handleUpload = async () => {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        // Example POST request using axios to upload file
+        const response = await axios.post('/upload_excel', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+
+        console.log('File uploaded successfully:', response.data);
+        navigate("/reference");
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
   };
 
   return (
@@ -170,9 +193,17 @@ const Dashboard = () => {
                 onChange={handleFileChange}
               />
               <span className="ml-4 text-gray-500">
-                {fileName ? 'File uploaded' : 'No file chosen'}
+                {fileName ? `${fileName} uploaded` : 'No file chosen'}
               </span>
+              <span className="ml-4 text-gray-500">
+              <button className="w-full bg-blue-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded" onClick={handleUpload} >
+            Submit
+          </button>
+          </span>
             </div>
+          </div>
+          <div className="mt-4">
+         
           </div>
           <div className="mt-8">
             <button className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded">

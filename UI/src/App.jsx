@@ -8,19 +8,21 @@ import SegmentedLine from "./Analysis/SegmentedLine";
 import BiomarkerChart from "./claud_files/BiomarkerChart";
 import Dashboard from "./claud_files/Dashboard";
 import LatestBorderline from "./claud_files/LatestBorderline";
+import analysispage from "./claud_files/analysispage";
 
 function App() {
   return (
     <Router>
       <Routes>
         {/* <Route path="/"  Component={Home} />  */}
-        <Route path="/recomendations" Component={Recomendations} />
+        {/* <Route path="/recomendations" Component={Recomendations} />
         <Route path="/reference" Component={Reference} />
         <Route path="/analysis" Component={Analysis} />
-        <Route path="/segmentLine" Component={SegmentedLine} />
+        <Route path="/segmentLine" Component={SegmentedLine} /> */}
+        <Route path="/recomendations" Component={Recomendations} />
+        <Route path="/reference" Component={Reference} />
+        <Route path="/analysis" Component={analysispage} />
         <Route path="/" Component={Dashboard} />
-        <Route path="/trail2" Component={BiomarkerChart} />
-        <Route path="/trail3" Component={LatestBorderline} />
       </Routes>
     </Router>
   );

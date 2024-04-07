@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import axios from 'axios';
+import Navbar from './Navbar';
 
 // Navbar component
-function Navbar() {
-  return (
-    <nav className="bg-green-500 text-white py-4">
-      <div className="container mx-auto flex items-center justify-between">
-        <div className="text-2xl font-bold">BLOOD</div>
-        <ul className="flex space-x-4">
-          <li><a href="/" className="hover:text-gray-200">Home</a></li>
-          <li><a href="/support" className="hover:text-gray-200">Support</a></li>
-          <li><a href="/account" className="hover:text-gray-200">My Account</a></li>
-        </ul>
-      </div>
-    </nav>
-  );
-}
+// function Navbar() {
+//   return (
+//     <nav className="bg-green-500 text-white py-4">
+//       <div className="container mx-auto flex items-center justify-between">
+//         <div className="text-2xl font-bold">BLOOD</div>
+//         <ul className="flex space-x-4">
+//           <li><a href="/" className="hover:text-gray-200">Home</a></li>
+//           <li><a href="/support" className="hover:text-gray-200">Support</a></li>
+//           <li><a href="/account" className="hover:text-gray-200">My Account</a></li>
+//         </ul>
+//       </div>
+//     </nav>
+//   );
+// }
 
 // BiomarkerChart component
 function BiomarkerChart() {
@@ -114,7 +115,7 @@ function LatestBorderline() {
 }
 
 // App component
-function App() {
+function analysispage() {
   return (
     <div className="bg-white min-h-screen">
       <Navbar />
@@ -131,4 +132,4 @@ function App() {
   );
 }
 
-export default App;
+export default analysispage;
