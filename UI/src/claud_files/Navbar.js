@@ -15,12 +15,15 @@ const Navbar = () => {
         <a href="#" className="text-gray-500 hover:text-gray-700">
           Support
         </a>
+        <a href="#" className="text-gray-500 hover:text-gray-700">
+          My Account
+        </a>
         <div className="relative">
           <div
             className="text-gray-500 flex items-center space-x-2 hover:text-gray-700 cursor-pointer"
             onClick={toggleDropdown}
           >
-            <span>My Account</span>
+            
             <div className="flex flex-col space-y-1">
               <div className="w-3 h-1 bg-gray-500 rounded"></div>
               <div className="w-3 h-1 bg-gray-500 rounded"></div>
