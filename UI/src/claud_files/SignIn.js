@@ -43,8 +43,8 @@ const SignInForm = () => {
     >
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full opacity-95">
         <h2 className="text-3xl font-bold mb-8 text-center flex items-center justify-center text-indigo-600">
-          <span className="text-green-500">Blood App</span>
-          <FaDna className="text-red-600 mx-2" /> {/* Blood drop icon */}
+          <span className="text-pink-500">Blood App</span>
+          <FaDna className="text-pink-600 mx-2" /> {/* Blood drop icon */}
           
         </h2>
         <form onSubmit={handleSubmit}>
@@ -79,7 +79,7 @@ const SignInForm = () => {
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Sign In
             </button>
