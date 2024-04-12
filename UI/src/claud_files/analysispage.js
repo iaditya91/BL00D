@@ -341,9 +341,9 @@ const BloodReportAnalytics = () => {
   };
 
   const fetchLineChartData = async (biomarkerId) => {
-    try {
+    try { 
       const response = await triggerGet(
-        `/api/biomarkers/line-chart?biomarker_id=${biomarkerId}`
+        `/get_excel_data_LineChart/16/${biomarkerId}`
       );
       setLineData(response.data);
     } catch (error) {
@@ -374,7 +374,7 @@ const BloodReportAnalytics = () => {
               <select
                 id="biomarker-select"
                 className="w-full p-2 border border-gray-300 rounded"
-                value={selectedBiomarker?.id || ""}
+                value={selectedBiomarker || ""}
                 onChange={handleBiomarkerChange}
               >
                 {bioMarkersList &&
