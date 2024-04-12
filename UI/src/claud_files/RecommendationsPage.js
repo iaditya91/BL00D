@@ -42,24 +42,24 @@ function Recommendations() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
           <button
-            className={`bg-green-500 text-white p-1 rounded-lg ${
-              selectedSection === 'healthDataRecommendations' ? 'bg-green-600' : ''
+            className={`bg-blue-500 text-white p-1 rounded-lg ${
+              selectedSection === 'healthDataRecommendations' ? 'bg-blue-600' : ''
             }`}
             onClick={() => handleSectionClick('healthDataRecommendations')}
           >
             <h2 className="text-m font-bold mb-4">HEALTH DATA RECOMENDATIONS</h2>
           </button>
           <button
-            className={`bg-blue-500 text-white p-1 rounded-lg ${
-              selectedSection === 'foodAndDietaryPrecautions' ? 'bg-blue-600' : ''
+            className={`bg-green-500 text-white p-1 rounded-lg ${
+              selectedSection === 'foodAndDietaryPrecautions' ? 'bg-green-600' : ''
             }`}
             onClick={() => handleSectionClick('foodAndDietaryPrecautions')}
           >
             <h2 className="text-m font-bold mb-4">FOOD & DIETRY PRECAUTIONS</h2>
           </button>
           <button
-            className={`bg-purple-500 text-white p-1 rounded-lg ${
-              selectedSection === 'recommendedDoctors' ? 'bg-purple-600' : ''
+            className={`bg-blue-500 text-white p-1 rounded-lg ${
+              selectedSection === 'recommendedDoctors' ? 'bg-blue-600' : ''
             }`}
             onClick={() => handleSectionClick('recommendedDoctors')}
           >

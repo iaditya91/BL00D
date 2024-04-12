@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import axios from 'axios';
-import Navbar from './Navbar';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
+import axios1 from "../api/axios1";
+import Navbar from "./Navbar";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
+import { triggerGet } from "../api/axiosFunctions";
 
 // Navbar component
 // function Navbar() {
@@ -209,7 +221,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart
 
 // export default BloodReportAnalytics;
 
-
 // const COLORS = ['#0088FE', '#FF8042'];
 
 // const BloodReportAnalytics = () => {
@@ -287,57 +298,64 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart
 
 // export default BloodReportAnalytics;
 
-
-const COLORS = ['#0088FE', '#FF8042'];
+const COLORS = ["#0088FE", "#FF8042"];
 
 const BloodReportAnalytics = () => {
-  const [biomarkers, setBiomarkers] = useState([]);
+  const [bioMarkersList, setBioMarkersList] = useState([]);
   const [selectedBiomarker, setSelectedBiomarker] = useState(null);
   const [pieData, setPieData] = useState([]);
   const [lineData, setLineData] = useState([]);
 
+  const fetchBioMarkersFromExcel = async () => {
+    try {
+      const bioMarkersListResponse = await triggerGet(
+        "/get_excel_data_biomarkers/16"
+      );
+      console.log("response data:", bioMarkersListResponse.data);
+      setBioMarkersList(bioMarkersListResponse.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    fetchBiomarkers();
-    fetchPieChartData();
+    // fetchBiomarkers();
+    fetchBioMarkersFromExcel();
+    // fetchPieChartData();
   }, []);
 
   useEffect(() => {
     if (selectedBiomarker) {
-      fetchLineChartData(selectedBiomarker.id);
+      console.log("fetching line chart data for ", selectedBiomarker);
+      fetchLineChartData(selectedBiomarker);
     }
   }, [selectedBiomarker]);
 
-  const fetchBiomarkers = async () => {
-    try {
-      const response = await axios.get('/api/biomarkers');
-      setBiomarkers(response.data);
-      setSelectedBiomarker(response.data[0]);
-    } catch (error) {
-      console.error('Error fetching biomarkers:', error);
-    }
-  };
-
   const fetchPieChartData = async () => {
     try {
-      const response = await axios.get('/api/biomarkers/pie-chart');
+      const response = await axios1.get("/api/biomarkers/pie-chart");
       setPieData(response.data);
     } catch (error) {
-      console.error('Error fetching pie chart data:', error);
+      console.error("Error fetching pie chart data:", error);
     }
   };
 
   const fetchLineChartData = async (biomarkerId) => {
     try {
-      const response = await axios.get(`/api/biomarkers/line-chart?biomarker_id=${biomarkerId}`);
+      const response = await triggerGet(
+        `/api/biomarkers/line-chart?biomarker_id=${biomarkerId}`
+      );
       setLineData(response.data);
     } catch (error) {
-      console.error('Error fetching line chart data:', error);
+      console.error("Error fetching line chart data:", error);
     }
   };
 
   const handleBiomarkerChange = (event) => {
-    const selectedId = parseInt(event.target.value);
-    const selectedBiomarker = biomarkers.find((biomarker) => biomarker.id === selectedId);
+    const selectedId = event.target.value;
+    const selectedBiomarker = bioMarkersList.find(
+      (biomarker) => biomarker === selectedId
+    );
     setSelectedBiomarker(selectedBiomarker);
   };
 
@@ -345,7 +363,7 @@ const BloodReportAnalytics = () => {
     <>
       <Navbar />
       <div className="container mx-auto py-8">
-        <h1 className="text-3xl font-bold mb-8">Blood Report Analytics</h1>
+        {/* <h1 className="text-3xl font-bold mb-8">Blood Report Analytics</h1> */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-bold mb-4">Biomarker Trend</h2>
@@ -356,14 +374,16 @@ const BloodReportAnalytics = () => {
               <select
                 id="biomarker-select"
                 className="w-full p-2 border border-gray-300 rounded"
-                value={selectedBiomarker?.id || ''}
+                value={selectedBiomarker?.id || ""}
                 onChange={handleBiomarkerChange}
               >
-                {biomarkers.map((biomarker) => (
-                  <option key={biomarker.id} value={biomarker.id}>
-                    {biomarker.biomarker}
-                  </option>
-                ))}
+                {bioMarkersList &&
+                  bioMarkersList.length > 0 &&
+                  bioMarkersList.map((biomarker, index) => (
+                    <option key={index} value={biomarker}>
+                      {biomarker}
+                    </option>
+                  ))}
               </select>
             </div>
             <div className="bg-white shadow-md rounded-md p-4">
@@ -373,7 +393,12 @@ const BloodReportAnalytics = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#8884d8"
+                  activeDot={{ r: 8 }}
+                />
               </LineChart>
             </div>
           </div>
@@ -381,9 +406,20 @@ const BloodReportAnalytics = () => {
             <h2 className="text-2xl font-bold mb-4">Biomarker Range</h2>
             <div className="bg-white shadow-md rounded-md p-4">
               <PieChart width={400} height={400}>
-                <Pie data={pieData} cx={200} cy={200} labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
+                <Pie
+                  data={pieData}
+                  cx={200}
+                  cy={200}
+                  labelLine={false}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
                   {pieData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
                   ))}
                 </Pie>
                 <Tooltip />
