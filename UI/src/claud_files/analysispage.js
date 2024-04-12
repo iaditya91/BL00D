@@ -341,11 +341,18 @@ const BloodReportAnalytics = () => {
   };
 
   const fetchLineChartData = async (biomarkerId) => {
-    try { 
+    try {
       const response = await triggerGet(
         `/get_excel_data_LineChart/16/${biomarkerId}`
       );
-      setLineData(response.data);
+      if (response.data !== null) {
+        const { date, values } = response.data;
+        const parsedLineData = date.map((d, i) => ({
+          name: d,
+          value: values[i],
+        }));
+        setLineData(parsedLineData);
+      }
     } catch (error) {
       console.error("Error fetching line chart data:", error);
     }
