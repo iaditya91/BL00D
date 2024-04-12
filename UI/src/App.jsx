@@ -5,9 +5,7 @@ import Reference from "./Reference/Reference";
 import Home from "./Home";
 import Analysis from "./Analysis/Analysis";
 import SegmentedLine from "./Analysis/SegmentedLine";
-import BiomarkerChart from "./claud_files/BiomarkerChart";
 import Dashboard from "./claud_files/Dashboard";
-import LatestBorderline from "./claud_files/LatestBorderline";
 import analysispage from "./claud_files/analysispage";
 import RecommendationsPage from "./claud_files/RecommendationsPage";
 
