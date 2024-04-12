@@ -210,32 +210,135 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart
 // export default BloodReportAnalytics;
 
 
+// const COLORS = ['#0088FE', '#FF8042'];
+
+// const BloodReportAnalytics = () => {
+//   const [biomarkerData, setBiomarkerData] = useState([]);
+//   const [pieData, setPieData] = useState([]);
+
+//   useEffect(() => {
+//     fetchBiomarkerData();
+//   }, []);
+
+//   const fetchBiomarkerData = async () => {
+//     try {
+//       const response = await axios.get('/api/biomarkers');
+//       const data = response.data;
+//       setBiomarkerData(data);
+
+//       // Calculate the pie data based on the fetched biomarker data
+//       const safeCount = data.filter(marker => marker.isSafe).length;
+//       const outOfRangeCount = data.length - safeCount;
+//       setPieData([
+//         { name: 'Safe', value: safeCount },
+//         { name: 'Out of Range', value: outOfRangeCount },
+//       ]);
+//     } catch (error) {
+//       console.error('Error fetching biomarker data:', error);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <Navbar />
+//       <div className="container mx-auto py-8">
+//         <h1 className="text-3xl font-bold mb-8">Blood Report Analytics</h1>
+//         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+//           <div>
+//             <h2 className="text-2xl font-bold mb-4">Biomarker Trend</h2>
+//             <div className="bg-white shadow-md rounded-md p-4">
+//               <LineChart width={500} height={300} data={biomarkerData}>
+//                 <CartesianGrid strokeDasharray="3 3" />
+//                 <XAxis dataKey="name" />
+//                 <YAxis />
+//                 <Tooltip />
+//                 <Legend />
+//                 <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+//               </LineChart>
+//             </div>
+//           </div>
+//           <div>
+//             <h2 className="text-2xl font-bold mb-4">Biomarker Range</h2>
+//             <div className="bg-white shadow-md rounded-md p-4">
+//               <PieChart width={400} height={400}>
+//                 <Pie
+//                   data={pieData}
+//                   cx={200}
+//                   cy={200}
+//                   labelLine={false}
+//                   outerRadius={80}
+//                   fill="#8884d8"
+//                   dataKey="value"
+//                 >
+//                   {pieData.map((entry, index) => (
+//                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+//                   ))}
+//                 </Pie>
+//                 <Tooltip />
+//                 <Legend />
+//               </PieChart>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default BloodReportAnalytics;
+
+
 const COLORS = ['#0088FE', '#FF8042'];
 
 const BloodReportAnalytics = () => {
-  const [biomarkerData, setBiomarkerData] = useState([]);
+  const [biomarkers, setBiomarkers] = useState([]);
+  const [selectedBiomarker, setSelectedBiomarker] = useState(null);
   const [pieData, setPieData] = useState([]);
+  const [lineData, setLineData] = useState([]);
 
   useEffect(() => {
-    fetchBiomarkerData();
+    fetchBiomarkers();
+    fetchPieChartData();
   }, []);
 
-  const fetchBiomarkerData = async () => {
+  useEffect(() => {
+    if (selectedBiomarker) {
+      fetchLineChartData(selectedBiomarker.id);
+    }
+  }, [selectedBiomarker]);
+
+  const fetchBiomarkers = async () => {
     try {
       const response = await axios.get('/api/biomarkers');
-      const data = response.data;
-      setBiomarkerData(data);
-
-      // Calculate the pie data based on the fetched biomarker data
-      const safeCount = data.filter(marker => marker.isSafe).length;
-      const outOfRangeCount = data.length - safeCount;
-      setPieData([
-        { name: 'Safe', value: safeCount },
-        { name: 'Out of Range', value: outOfRangeCount },
-      ]);
+      setBiomarkers(response.data);
+      setSelectedBiomarker(response.data[0]);
     } catch (error) {
-      console.error('Error fetching biomarker data:', error);
+      console.error('Error fetching biomarkers:', error);
     }
+  };
+
+  const fetchPieChartData = async () => {
+    try {
+      const response = await axios.get('/api/biomarkers/pie-chart');
+      setPieData(response.data);
+    } catch (error) {
+      console.error('Error fetching pie chart data:', error);
+    }
+  };
+
+  const fetchLineChartData = async (biomarkerId) => {
+    try {
+      const response = await axios.get(`/api/biomarkers/line-chart?biomarker_id=${biomarkerId}`);
+      setLineData(response.data);
+    } catch (error) {
+      console.error('Error fetching line chart data:', error);
+    }
+  };
+
+  const handleBiomarkerChange = (event) => {
+    const selectedId = parseInt(event.target.value);
+    const selectedBiomarker = biomarkers.find((biomarker) => biomarker.id === selectedId);
+    setSelectedBiomarker(selectedBiomarker);
   };
 
   return (
@@ -246,8 +349,25 @@ const BloodReportAnalytics = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-bold mb-4">Biomarker Trend</h2>
+            <div className="mb-4">
+              <label htmlFor="biomarker-select" className="block mb-2">
+                Select Biomarker:
+              </label>
+              <select
+                id="biomarker-select"
+                className="w-full p-2 border border-gray-300 rounded"
+                value={selectedBiomarker?.id || ''}
+                onChange={handleBiomarkerChange}
+              >
+                {biomarkers.map((biomarker) => (
+                  <option key={biomarker.id} value={biomarker.id}>
+                    {biomarker.biomarker}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div className="bg-white shadow-md rounded-md p-4">
-              <LineChart width={500} height={300} data={biomarkerData}>
+              <LineChart width={500} height={300} data={lineData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
@@ -261,15 +381,7 @@ const BloodReportAnalytics = () => {
             <h2 className="text-2xl font-bold mb-4">Biomarker Range</h2>
             <div className="bg-white shadow-md rounded-md p-4">
               <PieChart width={400} height={400}>
-                <Pie
-                  data={pieData}
-                  cx={200}
-                  cy={200}
-                  labelLine={false}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
+                <Pie data={pieData} cx={200} cy={200} labelLine={false} outerRadius={80} fill="#8884d8" dataKey="value">
                   {pieData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
