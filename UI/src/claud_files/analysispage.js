@@ -37,21 +37,20 @@ const BloodReportAnalytics = () => {
   };
 
   useEffect(() => {
-    // fetchBiomarkers();
     fetchBioMarkersFromExcel();
-    // fetchPieChartData();
   }, []);
 
   useEffect(() => {
     if (selectedBiomarker) {
-      console.log("fetching line chart data for ", selectedBiomarker);
+      console.log("fetching line chart data & pie chart data for ", selectedBiomarker);
       fetchLineChartData(selectedBiomarker);
+      fetchPieChartData(selectedBiomarker);
     }
   }, [selectedBiomarker]);
 
-  const fetchPieChartData = async () => {
+  const fetchPieChartData = async (biomarkerId) => {
     try {
-      const response = await axios1.get("/api/biomarkers/pie-chart");
+      const response = await triggerGet(`/api/biomarkers/pie-chart/${biomarkerId}`);
       setPieData(response.data);
     } catch (error) {
       console.error("Error fetching pie chart data:", error);
