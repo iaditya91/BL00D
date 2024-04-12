@@ -10,13 +10,20 @@ const Navbar = () => {
   return (
     <>
     <nav className="bg-white py-4 px-8 flex justify-between items-center shadow">
-      <div className="text-lg font-semibold">Health Tracker</div>
+      <div className="text-lg font-semibold">
+      <a href="/">
+          Blood App
+        </a>
+        </div>
       <div className="flex items-center space-x-4">
-        <a href="#" className="text-gray-500 hover:text-gray-700">
+        <a href="/supportpage" className="text-gray-500 hover:text-gray-700">
           Support
         </a>
-        <a href="#" className="text-gray-500 hover:text-gray-700">
+        <a href="/accountdetails" className="text-gray-500 hover:text-gray-700">
           My Account
+        </a>
+        <a href="/signin" className="text-gray-500 hover:text-gray-700">
+          Logout
         </a>
         <div className="relative">
           <div

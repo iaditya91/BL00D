@@ -101,7 +101,9 @@ const SignupForm = () => {
             >
               Sign Up
             </button>
+            
           </div>
+          <p>If already have an account <a href='/signin'>Sign In</a></p>
         </form>
       </div>
     </div>

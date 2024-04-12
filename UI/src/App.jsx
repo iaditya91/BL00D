@@ -10,6 +10,8 @@ import analysispage from "./claud_files/analysispage";
 import RecommendationsPage from "./claud_files/RecommendationsPage";
 import SignIn from "./claud_files/SignIn";
 import SignupForm from "./claud_files/SignUp";
+import SupportPage from "./claud_files/SupportPage";
+import AccountDetails from "./claud_files/AccountDetails";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
         <Route path="/" Component={Dashboard} />
         <Route path="/signIn" Component={SignIn} />  
         <Route path="/signUp" Component={SignupForm} />   
+        <Route path="/supportPage" Component={SupportPage} />  
+        <Route path="/accountDetails" Component={AccountDetails} />  
       </Routes>
     </Router>
   );

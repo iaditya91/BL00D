@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import backgroundImage from '../Images/background.jpg';
 import { FaDna, FaEnvelope, FaLock } from 'react-icons/fa';
-import { FaAmbulance } from 'react-icons/fa'; // Import the blood drop icon
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
@@ -84,6 +83,7 @@ const SignInForm = () => {
               Sign In
             </button>
           </div>
+          <p>If no account <a href='/signup'>Sign Up</a></p>
         </form>
       </div>
     </div>
