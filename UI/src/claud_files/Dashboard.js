@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from './Navbar';
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios1";
 import { Input } from "@mui/material";
 import Button from "@mui/material/Button";
-
-
-// Adding user feedback feature --try this code segment
+import { FaUser } from "react-icons/fa";
 
 const Dashboard = () => {
   const [fileName, setFileName] = useState('');
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(null);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch user details from the server
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get("/api/user");
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -27,19 +40,13 @@ const Dashboard = () => {
   const handleUpload = async () => {
     try {
       setUploadStatus('uploading');
-
       const formData = new FormData();
       formData.append('file', file);
-
       const response = await axios.post('/upload_excel', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
-
       console.log('File uploaded successfully:', response.data);
       setUploadStatus('success');
-
       // Delay navigation to allow the success message to be displayed
       setTimeout(() => {
         navigate("/reference");
@@ -55,6 +62,29 @@ const Dashboard = () => {
       <Navbar />
       <main className="flex-grow flex flex-col justify-center items-center p-8">
         <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+          {user && (
+            <div className="mb-8">
+              <div className="flex items-center justify-center mb-4">
+                <div className="bg-blue-500 rounded-full p-4">
+                  <FaUser className="text-white text-4xl" />
+                </div>
+              </div>
+              <div className="text-center">
+                <h2 className="text-2xl font-bold mb-2">{user.name}</h2>
+                <p className="text-gray-600">{user.email}</p>
+                <div className="mt-4 flex justify-center space-x-4">
+                  <div>
+                    <p className="text-gray-600 font-bold">Age</p>
+                    <p className="text-gray-800">{user.age}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-600 font-bold">Gender</p>
+                    <p className="text-gray-800">{user.gender}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="mt-8">
             <label htmlFor="blood-report" className="block text-gray-700 font-semibold mb-2">
               Upload Blood Report
@@ -68,11 +98,7 @@ const Dashboard = () => {
                 {fileName ? `${fileName} uploaded` : 'No file chosen'}
               </span>
               <span className="ml-4 text-gray-500">
-                <button
-                  className="w-full bg-blue-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded"
-                  onClick={handleUpload}
-                  disabled={uploadStatus === 'uploading'}
-                >
+                <button className="w-full bg-blue-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded" onClick={handleUpload} disabled={uploadStatus === 'uploading'}>
                   {uploadStatus === 'uploading' ? 'Uploading...' : 'Submit'}
                 </button>
               </span>
