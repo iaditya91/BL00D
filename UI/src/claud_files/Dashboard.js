@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Navbar from './Navbar';
 import { useNavigate } from "react-router-dom";
-import axios from "../api/axios1";
-import { Input } from "@mui/material";
-import Button from "@mui/material/Button";
+import AuthContext from './Authentication/AuthProvider';
 import { FaUser } from "react-icons/fa";
+import { triggerGet, triggerPost } from "../api/axiosFunctions";
 
 const Dashboard = () => {
+  const { auth } = useContext(AuthContext);
   const [fileName, setFileName] = useState('');
   const [file, setFile] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(null);
@@ -17,7 +17,7 @@ const Dashboard = () => {
     // Fetch user details from the server
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get("/api/user");
+        const response = await triggerGet("/api/user");
         setUser(response.data);
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -42,7 +42,7 @@ const Dashboard = () => {
       setUploadStatus('uploading');
       const formData = new FormData();
       formData.append('file', file);
-      const response = await axios.post('/upload_excel', formData, {
+      const response = await triggerPost('/upload_excel', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       console.log('File uploaded successfully:', response.data);

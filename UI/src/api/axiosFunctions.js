@@ -17,3 +17,12 @@ export const triggerPost = async (url, postData) =>
       "ngrok-skip-browser-warning": "true",
     },
   });
+
+export const triggerPostForm = async (url, postData) =>
+  await axios1.post(`${url}`, postData, {
+    headers: {
+      "Content-Type": "multipart/form-data", // Example of another header
+      Accept: "*/*",
+      "ngrok-skip-browser-warning": "true",
+    },
+  });

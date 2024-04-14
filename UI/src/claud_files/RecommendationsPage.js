@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import axios from 'axios';
+import React, { useState, useContext } from "react";
 import Navbar from "./Navbar";
+import AuthContext from './Authentication/AuthProvider';
+import { triggerGet } from "../api/axiosFunctions";
+
 
 function Recommendations() {
+  const { auth } = useContext(AuthContext);
   const [selectedSection, setSelectedSection] = useState('');
   const [sectionData, setSectionData] = useState(null);
   const [fileId, setFileId] = useState('');
@@ -11,7 +14,7 @@ function Recommendations() {
   const handleSectionClick = async (section) => {
     setSelectedSection(section);
     try {
-      const response = await axios.get(`/generate_content/${fileId}/${biomarker}/${section}`);
+      const response = await triggerGet(`/generate_content/${fileId}/${biomarker}/${section}`);
       setSectionData(response.data);
     } catch (error) {
       console.error('Error fetching data:', error);

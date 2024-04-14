@@ -1,7 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import Navbar from './Navbar';
+import AuthContext from './Authentication/AuthProvider';
 
 const AccountDetails = () => {
+  const { auth } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState('accountSetting');
   const [showImageUpload, setShowImageUpload] = useState(false);
   const fileInputRef = useRef(null);

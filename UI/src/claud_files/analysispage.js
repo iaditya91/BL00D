@@ -1,10 +1,7 @@
-
-
-// //Excellent job Developer CREDITS :  UMAMAHESWAR EDARA
-
-import React, { useState, useEffect } from "react";
-import axios1 from "../api/axios1";
+import React, { useState, useEffect, useContext } from "react";
 import Navbar from "./Navbar";
+import AuthContext from './Authentication/AuthProvider';
+
 import {
   LineChart,
   Line,
@@ -117,6 +114,7 @@ const renderActiveShape = (props) => {
 };
 
 const BloodReportAnalytics = () => {
+  const { auth } = useContext(AuthContext);
   const [bioMarkersList, setBioMarkersList] = useState([]);
   const [selectedBiomarker, setSelectedBiomarker] = useState(null);
   const [pieData, setPieData] = useState([]);

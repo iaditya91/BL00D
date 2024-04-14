@@ -1,24 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import backgroundImage from "../Images/background.jpg";
 import { FaDna, FaEnvelope, FaLock } from "react-icons/fa";
-import { triggerPost } from "../api/axiosFunctions";
+import { triggerPost, triggerPostForm } from "../api/axiosFunctions";
 import { GoogleLogin } from "react-google-login";
 import { useNavigate } from "react-router-dom";
 import { gapi } from 'gapi-script';
+import AuthContext from "./Authentication/AuthProvider";
 
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { auth, setAuth } = useContext(AuthContext);
   const googleClientId = "515038645011-ffpplielrjghk5f632ukm28auk4mm4un.apps.googleusercontent.com";
 
   const navigate = useNavigate();
 
-  const handleGoogleSignUpSuccessResponse = (response) => {
+  const handleGoogleSignUpSuccessResponse = async (response) => {
     // Handle the successful Google signup response
     console.log(response);
     // Extract user information from the response
     const { googleId, profileObj } = response;
-    const { email, name, imageUrl } = profileObj;
+    const { email, name } = profileObj;
+    const formData = new FormData();
+    formData.append('username', email);
+    formData.append('name', name);
+    const googleresponse = await triggerPostForm("/api/googlesignin", formData);
     // Perform further actions with the user data (e.g., save to database, update state)
   };
 
@@ -48,8 +54,13 @@ const SignInForm = () => {
 
     try {
       // Sign-in request to the server
-      const response = await triggerPost("/api/signin", { email, password });
-      const { token, userId } = response.data;
+      const formData = new FormData();
+      formData.append('username', email);
+      formData.append('password', password);
+      const response = await triggerPostForm("/api/signin", formData);
+      const { name, access_token } = response.data;
+      setAuth({ name, access_token });
+      navigate('/');
 
       // Reset form fields
       setEmail("");

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FaSearch, FaQuestionCircle, FaHeadset, FaComments, FaTimes } from 'react-icons/fa';
 import Navbar from './Navbar';
+import AuthContext from './Authentication/AuthProvider';
 
 const SupportPage = () => {
+  const { auth } = useContext(AuthContext);
   const [showTopics, setShowTopics] = useState(false);
   const [showMessageForm, setShowMessageForm] = useState(false);
 

@@ -1,8 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useFrame } from "@react-three/fiber";
+import AuthContext from './Authentication/AuthProvider';
 import { Mesh, Shape, ExtrudeGeometry, MeshPhongMaterial } from "three";
 
 export const PieChart3D = ({ data }) => {
+  const { auth } = useContext(AuthContext);
   const groupRef = useRef();
 
   useFrame(({ clock }) => {
