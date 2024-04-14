@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import backgroundImage from '../Images/background.jpg';
 import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa';
 import { FaDna } from 'react-icons/fa';
+import { triggerPost } from '../api/axiosFunctions';
 
 const SignupForm = () => {
   const [email, setEmail] = useState('');
@@ -26,7 +26,8 @@ const SignupForm = () => {
 
     try {
       // Signup request to the server
-      await axios.post('/api/signup', { email, password, name });
+      
+      await triggerPost('/api/signup', { email, password, name });
 
       // Reset form fields
       setEmail('');
@@ -103,8 +104,10 @@ const SignupForm = () => {
             </button>
             
           </div>
-          <p>If already have an account <a href='/signin'>Sign In</a></p>
         </form>
+        <div>If already have an account? <a href='/signin' className="text-blue-500 underline">Sign In</a></div>
+        <>
+        </>
       </div>
     </div>
   );
