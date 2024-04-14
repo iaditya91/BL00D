@@ -26,8 +26,7 @@ const SignupForm = () => {
 
     try {
       // Signup request to the server
-      
-      await triggerPost('/api/signup', { email, password, name });
+      await triggerPost('/api/signup', {username:email, password, name});
 
       // Reset form fields
       setEmail('');

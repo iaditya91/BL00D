@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import backgroundImage from "../Images/background.jpg";
 import { FaDna, FaEnvelope, FaLock } from "react-icons/fa";
 import { triggerPost } from "../api/axiosFunctions";
