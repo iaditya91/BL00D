@@ -1,0 +1,23 @@
+Add "Download report" on the navigation bar, implement the backend functionality to it(Navbar.js).
+
+page 1 --> Login
+
+Login page implement the backend code
+Intergration
+Addded google and other social app login functionality 
+
+page 2 --> Dashboard
+
+Add the Age, gender and user profile picture details on the page, send the data requirments to the backend
+
+functionality : Extract the bio marker details, date of test,  from the uploaded file [ uploaded file can be excel, pdf, docx etc ], add these details to the database
+
+page 3 --> analysis page 
+
+Add the BioMarker Gap Analysis, Risk analysis Functionality to this page [ Discuss Implementation Details ]
+Add display bio markers list on the side when pointer is move to the certain part of the pie.
+
+
+page 4 --> recommendations page 
+
+Integrate the endpoints, ( Deciding on Models : BioMistral, Llama )
