@@ -10,6 +10,8 @@ import { gapi } from 'gapi-script';
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const googleClientId = "515038645011-ffpplielrjghk5f632ukm28auk4mm4un.apps.googleusercontent.com";
+
   const navigate = useNavigate();
 
   const handleGoogleSignUpSuccessResponse = (response) => {
@@ -61,7 +63,7 @@ const SignInForm = () => {
   useEffect(()=> {
     function start(){
       gapi.client.init({
-        clientId: "515038645011-ffpplielrjghk5f632ukm28auk4mm4un.apps.googleusercontent.com",
+        clientId: googleClientId,
         scope: ""
       })
     };
@@ -122,7 +124,7 @@ const SignInForm = () => {
             {'   '}
 
             <GoogleLogin
-              clientId=""
+              clientId={googleClientId}
               buttonText="Google"
               onSuccess={handleGoogleSignUpSuccessResponse}
               onFailure={handleGoogleSignUpFailureResponse}
