@@ -16,7 +16,7 @@ import {
   Sector,
   ResponsiveContainer,
 } from "recharts";
-import { triggerGet } from "../api/axiosFunctions";
+import { triggerGetWithAuth } from "../api/axiosFunctions";
 
 const COLORS = ["#0088FE", "#FF8042", "#00C49F"];
 
@@ -126,7 +126,7 @@ const BloodReportAnalytics = () => {
 
   const fetchBioMarkersFromExcel = async () => {
     try {
-      const bioMarkersListResponse = await triggerGet(
+      const bioMarkersListResponse = await triggerGetWithAuth(
         "/get_excel_data_biomarkers/16"
       );
       console.log("response data:", bioMarkersListResponse.data);
@@ -138,7 +138,7 @@ const BloodReportAnalytics = () => {
 
   const fetchAvailableDates = async () => {
     try {
-      const response = await triggerGet(`/get_available_dates/16/dates`);
+      const response = await triggerGetWithAuth(`/get_available_dates/16/dates`);
       setAvailableDates(response.data);
     } catch (error) {
       console.error("Error fetching available dates:", error);
@@ -168,7 +168,7 @@ const BloodReportAnalytics = () => {
 
   const fetchLineChartData = async (biomarkerId) => {
     try {
-      const response = await triggerGet(
+      const response = await triggerGetWithAuth(
         `/get_excel_data_LineChart/16/${biomarkerId}`
       );
       if (response.data !== null) {
@@ -186,7 +186,7 @@ const BloodReportAnalytics = () => {
 
   const fetchPieChartData = async (biomarkerId, date) => {
     try {
-      const response = await triggerGet(`/get_excel_data_pie/16/${date}`);
+      const response = await triggerGetWithAuth(`/get_excel_data_pie/16/${date}`);
       const {
         below_range_biomarkers,
         within_range_biomarkers,
@@ -364,7 +364,7 @@ export default BloodReportAnalytics
 //   Sector,
 //   ResponsiveContainer,
 // } from "recharts";
-// import { triggerGet } from "../api/axiosFunctions";
+// import { triggerGetWithAuth } from "../api/axiosFunctions";
 
 // const COLORS = ["#0088FE", "#FF8042", "#00C49F"];
 
@@ -473,7 +473,7 @@ export default BloodReportAnalytics
 
 //   const fetchBioMarkersFromExcel = async () => {
 //     try {
-//       const bioMarkersListResponse = await triggerGet(
+//       const bioMarkersListResponse = await triggerGetWithAuth(
 //         "/get_excel_data_biomarkers/16"
 //       );
 //       console.log("response data:", bioMarkersListResponse.data);
@@ -485,7 +485,7 @@ export default BloodReportAnalytics
 
 //   const fetchAvailableDates = async () => {
 //     try {
-//       const response = await triggerGet(`/get_available_dates/16/dates`);
+//       const response = await triggerGetWithAuth(`/get_available_dates/16/dates`);
 //       setAvailableDates(response.data);
 //     } catch (error) {
 //       console.error("Error fetching available dates:", error);
@@ -515,7 +515,7 @@ export default BloodReportAnalytics
 
 //   const fetchLineChartData = async (biomarkerId) => {
 //     try {
-//       const response = await triggerGet(
+//       const response = await triggerGetWithAuth(
 //         `/get_excel_data_LineChart/16/${biomarkerId}`
 //       );
 //       if (response.data !== null) {
@@ -533,7 +533,7 @@ export default BloodReportAnalytics
 
 //   const fetchPieChartData = async (biomarkerId, date) => {
 //     try {
-//       const response = await triggerGet(`/get_excel_data_pie/16/${date}`);
+//       const response = await triggerGetWithAuth(`/get_excel_data_pie/16/${date}`);
 //       const {
 //         below_range_biomarkers,
 //         within_range_biomarkers,
@@ -712,7 +712,7 @@ export default BloodReportAnalytics
 //   ResponsiveContainer,
 //   Area,
 // } from "recharts";
-// import { triggerGet } from "../api/axiosFunctions";
+// import { triggerGetWithAuth } from "../api/axiosFunctions";
 
 // const COLORS = ["#0088FE", "#FF8042", "#00C49F"];
 
@@ -821,7 +821,7 @@ export default BloodReportAnalytics
 
 //   const fetchBioMarkersFromExcel = async () => {
 //     try {
-//       const bioMarkersListResponse = await triggerGet(
+//       const bioMarkersListResponse = await triggerGetWithAuth(
 //         "/get_excel_data_biomarkers/16"
 //       );
 //       console.log("response data:", bioMarkersListResponse.data);
@@ -833,7 +833,7 @@ export default BloodReportAnalytics
 
 //   const fetchAvailableDates = async () => {
 //     try {
-//       const response = await triggerGet(`/get_available_dates/16/dates`);
+//       const response = await triggerGetWithAuth(`/get_available_dates/16/dates`);
 //       setAvailableDates(response.data);
 //     } catch (error) {
 //       console.error("Error fetching available dates:", error);
@@ -863,7 +863,7 @@ export default BloodReportAnalytics
 
 //   const fetchLineChartData = async (biomarkerId) => {
 //     try {
-//       const response = await triggerGet(
+//       const response = await triggerGetWithAuth(
 //         `/get_excel_data_LineChart/16/${biomarkerId}`
 //       );
 //       if (response.data !== null) {
@@ -881,7 +881,7 @@ export default BloodReportAnalytics
 
 //   const fetchPieChartData = async (biomarkerId, date) => {
 //     try {
-//       const response = await triggerGet(`/get_excel_data_pie/16/${date}`);
+//       const response = await triggerGetWithAuth(`/get_excel_data_pie/16/${date}`);
 //       const {
 //         below_range_biomarkers,
 //         within_range_biomarkers,
@@ -1061,7 +1061,7 @@ export default BloodReportAnalytics
 // import Navbar from "./Navbar";
 // import { Canvas } from "@react-three/fiber";
 // import { PieChart3D } from "./PieChart3D";
-// import { triggerGet } from "../api/axiosFunctions";
+// import { triggerGetWithAuth } from "../api/axiosFunctions";
 
 // const COLORS = ["#0088FE", "#FF8042", "#00C49F"];
 
@@ -1074,7 +1074,7 @@ export default BloodReportAnalytics
 
 //   const fetchBioMarkersFromExcel = async () => {
 //     try {
-//       const bioMarkersListResponse = await triggerGet(
+//       const bioMarkersListResponse = await triggerGetWithAuth(
 //         "/get_excel_data_biomarkers/16"
 //       );
 //       console.log("response data:", bioMarkersListResponse.data);
@@ -1086,7 +1086,7 @@ export default BloodReportAnalytics
 
 //   const fetchAvailableDates = async () => {
 //     try {
-//       const response = await triggerGet(`/get_available_dates/16/dates`);
+//       const response = await triggerGetWithAuth(`/get_available_dates/16/dates`);
 //       setAvailableDates(response.data);
 //     } catch (error) {
 //       console.error("Error fetching available dates:", error);
@@ -1115,7 +1115,7 @@ export default BloodReportAnalytics
 
 //   const fetchPieChartData = async (biomarkerId, date) => {
 //     try {
-//       const response = await triggerGet(`/get_excel_data_pie/16/${date}`);
+//       const response = await triggerGetWithAuth(`/get_excel_data_pie/16/${date}`);
 //       const {
 //         below_range_biomarkers,
 //         within_range_biomarkers,

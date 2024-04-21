@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import backgroundImage from '../Images/background.jpg';
 import { FaEnvelope, FaLock, FaUser } from 'react-icons/fa';
 import { FaDna } from 'react-icons/fa';
-import { triggerPostForm } from '../api/axiosFunctions';
+import { triggerPostFormWithAuth } from '../api/axiosFunctions';
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -30,12 +32,13 @@ const SignupForm = () => {
       formData.append('username', email);
       formData.append('password', password);
       formData.append('name', name);
-      await triggerPostForm('/api/signup', formData);
+      await triggerPostFormWithAuth('/api/signup', formData);
 
       // Reset form fields
       setEmail('');
       setPassword('');
       setName('');
+      navigate('/signin');
     } catch (error) {
       console.error(error);
     }

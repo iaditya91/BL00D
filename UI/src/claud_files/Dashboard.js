@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import { useNavigate } from "react-router-dom";
 import AuthContext from './Authentication/AuthProvider';
 import { FaUser } from "react-icons/fa";
-import { triggerGet, triggerPost } from "../api/axiosFunctions";
+import { triggerGetWithAuth, triggerPostFormWithAuth, triggerPostWithAuth } from "../api/axiosFunctions";
 
 const Dashboard = () => {
   const { auth } = useContext(AuthContext);
@@ -17,7 +17,7 @@ const Dashboard = () => {
     // Fetch user details from the server
     const fetchUserDetails = async () => {
       try {
-        const response = await triggerGet("/api/user");
+        const response = await triggerGetWithAuth("/api/user", auth.access_token);
         setUser(response.data);
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -42,9 +42,7 @@ const Dashboard = () => {
       setUploadStatus('uploading');
       const formData = new FormData();
       formData.append('file', file);
-      const response = await triggerPost('/upload_excel', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      const response = await triggerPostFormWithAuth('/api/upload_excel', formData, auth.access_token);
       console.log('File uploaded successfully:', response.data);
       setUploadStatus('success');
       // Delay navigation to allow the success message to be displayed

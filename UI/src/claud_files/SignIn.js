@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import backgroundImage from "../Images/background.jpg";
 import { FaDna, FaEnvelope, FaLock } from "react-icons/fa";
-import { triggerPost, triggerPostForm } from "../api/axiosFunctions";
+import { triggerPostFormWithAuth } from "../api/axiosFunctions";
 import { GoogleLogin } from "react-google-login";
 import { useNavigate } from "react-router-dom";
-import { gapi } from 'gapi-script';
 import AuthContext from "./Authentication/AuthProvider";
 
 const SignInForm = () => {
@@ -24,7 +23,7 @@ const SignInForm = () => {
     const formData = new FormData();
     formData.append('username', email);
     formData.append('name', name);
-    const googleresponse = await triggerPostForm("/api/googlesignin", formData);
+    // const googleresponse = await triggerPostFormWithAuth("/api/googlesignin", formData);
     // Perform further actions with the user data (e.g., save to database, update state)
   };
 
@@ -57,9 +56,10 @@ const SignInForm = () => {
       const formData = new FormData();
       formData.append('username', email);
       formData.append('password', password);
-      const response = await triggerPostForm("/api/signin", formData);
+      const response = await triggerPostFormWithAuth("/api/signin", formData);
       const { name, access_token } = response.data;
-      setAuth({ name, access_token });
+      console.log("access token: ", access_token, "name: ", name);
+      setAuth({ access_token });
       navigate('/');
 
       // Reset form fields
@@ -70,16 +70,16 @@ const SignInForm = () => {
     }
   };
 
-  useEffect(()=> {
-    function start(){
-      gapi.client.init({
-        clientId: googleClientId,
-        scope: ""
-      })
-    };
+  // useEffect(()=> {
+  //   function start(){
+  //     gapi.client.init({
+  //       clientId: googleClientId,
+  //       scope: ""
+  //     })
+  //   };
 
-    gapi.load('client:auth2', start)
-  });
+  //   gapi.load('client:auth2', start)
+  // });
 
   return (
     <div
