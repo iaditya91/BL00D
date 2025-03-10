@@ -1,0 +1,81 @@
+export default function Home() {
+
+  // Types
+  type ReferenceValue = {
+    id: string;
+    color: string;
+    min: number;
+    max: number;
+  };
+
+  type Metric = {
+    name: string;
+    metricVal: number;
+    referenceValues: ReferenceValue[];
+  };
+
+  // Sample data
+  let data = [
+    {
+      name: "RBC",
+      metricVal: 2,
+      referenceValues: [
+        { id: "alarm-one", color: "red", min: 0, max: 3.35 },
+        // ... (other reference values)
+      ],
+    },
+    // ... (other metrics)
+  ];
+
+  return (
+    // Using plain CSS or another styling solution
+    <div className="text-center mt-12">
+      <h1 className="text-xl font-bold">
+        Proof of Concept: Using CSS Grid for Uneven Reference Bars
+      </h1>
+      <div className="flex flex-col gap-4 mt-12">
+        {data.map((metric) => {
+          return (
+            <div key={metric.name} className="flex">
+              <h1>
+                {metric.name}:{metric.metricVal}
+              </h1>
+              <div className="flex-1 grid grid-cols-8">
+                {metric.referenceValues.map((referenceVal) => {
+                  let metricStyle = `relative bg-${referenceVal.color}-200 border `;
+                  if (referenceVal.id === "optimal") {
+                    metricStyle += "col-span-2";
+                  }
+
+                  let markerStyle = `absolute top-0 text-${referenceVal.color}-500 translate-x-[-50%]`;
+                  let markerCalc = `calc(${((metric.metricVal - referenceVal.min) / (referenceVal.max - referenceVal.min)) * 100}% + 0.5px)`;
+                  let hasMarker = false;
+
+                  if (
+                    metric.metricVal > referenceVal.min &&
+                    metric.metricVal < referenceVal.max
+                  ) {
+                    hasMarker = true;
+                  }
+
+                  return (
+                    <div key={referenceVal.id} className={metricStyle}>
+                      {hasMarker && (
+                        <div
+                          className={markerStyle}
+                          style={{ left: markerCalc }}
+                        >
+                          |
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
